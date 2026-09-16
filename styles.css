@@ -19,4 +19,4 @@ button:active { background: var(--accent); border-color: var(--accent); }
 .panel p { margin: 0 0 12px; color: var(--muted); font-size: 14px; line-height: 1.5; }.overlay-stats { min-height: 16px; margin-bottom: 18px; color: var(--accent); font-size: 11px; letter-spacing: .12em; }
 .panel button { background: var(--accent); border-color: var(--accent); padding: 12px 18px; }
 .hidden { display: none; }
-@media (max-width: 600px) { .hud { padding: 14px 15px; } .stats { gap: 10px; }.stats strong { font-size: 16px; }.help { left: 15px; bottom:66px; max-width:210px; line-height:1.4; } .controls { right:15px; bottom:14px; } button { padding:10px; } }
+@media (max-width: 600px) { .hud { padding: 14px 15px; } .stats { gap: 10px; }.stats strong { font-size: 16px; }.help { left: 15px; bottom: 66px; max-width:210px; line-height:1.4; } .controls { right:15px; bottom:14px; } button { padding:10px; } }
