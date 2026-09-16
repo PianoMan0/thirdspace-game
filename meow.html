@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="description" content="Blast Off is a platformer where you launch yourself in the direction you want to go! Navigate through the sea, dessert, space, and more!">
+  <title>Blast Off</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="game" aria-label="Third Space platformer"></canvas>
+  <div class="hud">
+    <div class="topline">
+      <div>
+        <div class="brand"><span class="brand-mark">+</span> Blast Off</div>
+        <div class="world-name"><span id="worldName"></span><span class="dot">/</span><span id="worldHint">VECTOR TRAINING</span></div>
+      </div>
+      <div class="stats">
+        <div><span>Attempts</span><strong id="deaths">0</strong></div>
+        <div><span>Distance</span><strong><span id="distance">0</span><small>m</small></strong></div>
+        <div>World<strong id="worldNumber">1 / 3</strong></div>
+      </div>
+    </div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="help"><b>Pull back, release</b><span>Reach the beacon. Arrow keys also launch.</span></div>
+    <div class="controls">
+      <button id="pause" type="button" aria-label="Pause game">Pause</button>
+      <button id="restart" type="button">Restart</button>
+      <button id="next" type="button" class="hidden">Next world</button>
+    </div>
+  </div>
+  <div id="overlay" class="overlay hidden">
+    <div class="panel">
+      <h1 id="overlayTitle"></h1>
+      <p id="overlayText"></p>
+      <div id="overlayStats" class="overlay-stats"></div>
+      <button id="overlayButton" type="button"></button>
+    </div>
+  </div>
+</body>
+</html>
