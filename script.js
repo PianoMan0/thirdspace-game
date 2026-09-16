@@ -69,15 +69,15 @@
   function fail() {
     if (state !== 'playing') return;
     state = 'dead'; deaths++; burst(player.x, player.y, '#fff', 28); updateUi();
-    showOverlay('LOST IN SPACE', 'The void is patient. Your vector is not.', 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
-  }
+    showOverlay('LOST IN THE FIELDS', 'If thou leavest the world, thou shalt perish.', 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+  } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
     const final = worldIndex === worlds.length - 1;
-    showOverlay(final ? 'ALL WORLDS CLEAR' : 'WORLD CLEAR', final ? 'Three worlds. One excellent vector.' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}`, `DISTANCE  ${Math.round(player.distance / 10)}m`, !final);
+    showOverlay(final ? 'ALL WORLDS CLEAR' : 'WORLD CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
   }
   function togglePause() {
-    if (state === 'playing') { state = 'paused'; $('pause').textContent = 'Resume'; showOverlay('PAUSED', 'Your trajectory is waiting.', 'Resume'); }
+    if (state === 'playing') { state = 'paused'; $('pause').textContent = 'Resume'; showOverlay('PAUSED', 'Your destiny is waiting.', 'Resume'); }
     else if (state === 'paused') { state = 'playing'; $('pause').textContent = 'Pause'; hideOverlay(); }
   }
   $('pause').onclick = togglePause;
@@ -99,18 +99,38 @@
     }
   });
 
-  function update(dt) {
-    if (state === 'playing') {
-      const oldY = player.y;
-      player.vy += 1050 * dt; player.vx *= Math.pow(.994, dt * 60); player.x += player.vx * dt; player.y += player.vy * dt;
-      for (const p of world().platforms) {
-        if (player.x + player.r > p.x && player.x - player.r < p.x + p.width && player.y + player.r > p.y && player.y - player.r < p.y + p.height && oldY + player.r <= p.y + 6 && player.vy >= 0) {
-          player.y = p.y - player.r; player.vy = 0;
+  function movePlayer(dt) {
+    const distance = Math.max(Math.abs(player.vx * dt), Math.abs(player.vy * dt));
+    const steps = Math.max(1, Math.ceil(distance / (player.r / 2)));
+    const step = dt / steps;
+
+    for (let i = 0; i < steps; i++) {
+      player.x += player.vx * step;
+      for (const platform of world().platforms) {
+        if (player.x + player.r > platform.x && player.x - player.r < platform.x + platform.width && player.y + player.r > platform.y && player.y - player.r < platform.y + platform.height) {
+          if (player.vx > 0) player.x = platform.x - player.r;
+          else if (player.vx < 0) player.x = platform.x + platform.width + player.r;
+          player.vx = 0;
         }
       }
+
+      player.y += player.vy * step;
+      for (const platform of world().platforms) {
+        if (player.x + player.r > platform.x && player.x - player.r < platform.x + platform.width && player.y + player.r > platform.y && player.y - player.r < platform.y + platform.height) {
+          if (player.vy > 0) player.y = platform.y - player.r;
+          else if (player.vy < 0) player.y = platform.y + platform.height + player.r;
+          player.vy = 0;
+        }
+      }
+    }
+  }
+
+  function update(dt) {
+    if (state === 'playing') {
+      player.vy += 1050 * dt; player.vx *= Math.pow(.994, dt * 60); movePlayer(dt);
       player.distance = Math.max(player.distance, player.x - world().start.x); player.best = Math.max(player.best, player.distance); updateUi();
       const goal = world().goal;
-      if (Math.hypot(player.x - goal.x, player.y - goal.y) < 46) win();
+      if (Math.hypot(player.x - goal.x, player.y - goal.y) < 46) { win(); return; }
       if (player.y > H + 180 || player.y < -280 || player.x < -120) fail();
       cameraX += (Math.max(0, Math.min(endX() - W, player.x - W * .32)) - cameraX) * Math.min(1, dt * 5);
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);

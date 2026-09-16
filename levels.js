@@ -1,3 +1,15 @@
+// How to add your own levels:
+// Name: Name of the level
+// Hint: is actually the name of the world, I need to fix that
+// Sky: Color of the sky, it should be the same for every level in a world
+// Accent: Color of the player and the goal
+// Start: Starting position of the player
+// Goal: Position of the goal
+// Platforms: Each platform is an object with x, y, width and height properties
+
+// Notes: The x and y coordinates are the opposite of what they would be in a graphing calculator for instance
+// This is annoying but it's what gamedev folks usually do
+
 const LEVELS = [
   {
     name: 'Welcome',
@@ -5,7 +17,7 @@ const LEVELS = [
     sky: '#737438',
     accent: '#ff7654',
     start: { x: 80, y: 390 },
-    goal: { x: 1950, y: 400 },
+    goal: { x: 1950, y: 150 },
     platforms: [
       { x: 0, y: 470, width: 420, height: 70 },
       { x: 530, y: 410, width: 180, height: 24 },
@@ -18,7 +30,7 @@ const LEVELS = [
   },
 
   {
-    name: 'THE GAPS',
+    name: 'The Gaps',
     hint: 'HARVEST',
     sky: '#737438',
     accent: '#ffd166',
@@ -37,7 +49,7 @@ const LEVELS = [
   },
 
   {
-    name: 'LAST LIGHT',
+    name: 'The Final Level',
     hint: 'HARVEST',
     sky: '#737438',
     accent: '#7ed6a5',
