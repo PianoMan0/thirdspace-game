@@ -13,7 +13,7 @@ body { font-family: "Trebuchet MS", "Segoe UI", sans-serif; touch-action: none; 
 .controls { position: absolute; right: 18px; bottom: 16px; display: flex; gap: 8px; pointer-events: auto; }
 button { border: 1px solid var(--line); border-radius: 4px; padding: 9px 12px; color: var(--ink); background: rgba(15,20,24,.7); font: 700 11px inherit; letter-spacing: .08em; text-transform: uppercase; transition: background .18s,border-color .18s,transform .18s; } button:hover { border-color: var(--ink); transform: translateY(-1px); }
 button:active { background: var(--accent); border-color: var(--accent); }
-.overlay { position:fixed; inset:0; display:grid; place-items:center; padding:22px; pointer-events:none; }
+.overlay { position: fixed; inset:0 ; display:grid; place-items:center; padding:22px; pointer-events:none; }
 .panel { max-width:440px; text-align:center; pointer-events:auto; }
 .panel h1 { margin:0 0 10px; color:var(--ink); font-size:clamp(32px,8vw,64px); line-height:.95; letter-spacing:-.04em; }
 .panel p { margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.5; }.overlay-stats { min-height:16px; margin-bottom:18px; color:var(--accent); font-size:11px; letter-spacing:.12em; }
