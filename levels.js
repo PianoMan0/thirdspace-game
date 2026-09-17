@@ -26,7 +26,8 @@ const LEVELS = [
       { x: 1280, y: 300, width: 150, height: 24 },
       { x: 1480, y: 380, width: 200, height: 24 },
       { x: 1800, y: 280, width: 200, height: 24 }
-    ]
+    ],
+    portals: [{ entryx: 300, entryy: 350, exitx: 1200, exity: 200, radius: 25},]
   },
 
   {
@@ -45,7 +46,8 @@ const LEVELS = [
       { x: 1450, y: 280, width: 130, height: 24 },
       { x: 1750, y: 400, width: 160, height: 24 },
       { x: 2050, y: 290, width: 180, height: 24 }
-    ]
+    ],
+    portals: []
   },
 
   {
@@ -65,6 +67,9 @@ const LEVELS = [
       { x: 1820, y: 380, width: 150, height: 24 },
       { x: 2120, y: 290, width: 140, height: 24 },
       { x: 2350, y: 350, width: 200, height: 24 }
+    ],
+    portals: [
+      { x: 0, y: 470, width: 360, height: 70 },
     ]
   }
 ];

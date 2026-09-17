@@ -1,6 +1,6 @@
 (() => {
   const canvas = document.getElementById('game');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d'); //context
   const W = 960, H = 540, TAU = Math.PI * 2;
   const worlds = LEVELS;
   let dpr = 1, viewW = 1, viewH = 1, worldIndex = 0, deaths = 0, state = 'playing';
@@ -136,6 +136,14 @@
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
     }
+    //portal particles
+    for (const p of world().portals){
+      if(Math.random() > 0.6){
+        //random position on perim
+        const angle = Math.random() *360 //deg 0-360
+        const 
+      }
+    }
     pulse = Math.max(0, pulse - dt * 2);
     particles = particles.filter(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 220 * dt; p.life -= dt; return p.life > 0; });
   }
@@ -149,6 +157,19 @@
     ctx.fillStyle = 'rgba(255,255,255,.08)';
     for (let i = 0; i < 90; i++) { const x = (i * 173) % (endX() + W), y = (i * 97) % H; ctx.globalAlpha = .15 + (i % 4) * .04; ctx.fillRect(x, y, 1 + i % 2, 1 + i % 2); }
     ctx.globalAlpha = 1;
+    //sorry lol this looks out of place im a crazy commenter if u want we can delete at the end tho
+    //portals 
+      for (const p of world().portals){
+        const pulseradiusportal = p.radius;
+        ctx.strokeStyle = '#240221';
+        ctx.fillStyle = '#5f195a';
+        ctx.lineWidth = 4; 
+        ctx.beginPath(); //new drawing
+        ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
+        ctx.stroke();
+        ctx.fill();
+        ctx.globalAlpha = 0.5;
+      }
     for (const p of world().platforms) { ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     ctx.globalAlpha = .14; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(g.x, g.y, glow + 16, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
@@ -161,3 +182,4 @@
   function loop(now) { const dt = Math.min(.033, (now - last) / 1000 || .016); last = now; update(dt); draw(); requestAnimationFrame(loop); }
   resize(); loadWorld(0); requestAnimationFrame(loop);
 })();
+

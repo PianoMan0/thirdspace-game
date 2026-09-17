@@ -135,7 +135,7 @@ button:active {
     left: 0; 
     height: 100vh; 
     width: auto; 
-    transition: transform 4s cubic-bezier(0.8,0,1,1);
+    transition: transform 2s cubic-bezier(0.7,0,1,1);
 }
 #content_div{
     z-index: 100;
