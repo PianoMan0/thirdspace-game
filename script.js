@@ -27,6 +27,7 @@
   function resetPlayer() {
     const { x, y } = world().start;
     Object.assign(player, { x, y, vx: 0, vy: 0, trail: [], distance: 0 });
+    world().platforms.forEach(platform => { platform.crumbleTime = null; });
     drag = null; cameraX = 0; cameraY = 0; state = 'playing'; $('pause').textContent = 'Pause';
     hideOverlay(); updateUi();
   }
@@ -70,7 +71,7 @@
   function fail() {
     if (state !== 'playing') return;
     state = 'dead'; deaths++; burst(player.x, player.y, '#fff', 28); updateUi();
-    showOverlay('LOST IN THE FIELDS', 'If thou leavest the world, thou shalt perish.', 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+    showOverlay('LOST IN THE FIELDS', 'Thou hast perished, but thou can rebirth :3.', 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
   } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
@@ -108,6 +109,7 @@
     for (let i = 0; i < steps; i++) {
       player.x += player.vx * step;
       for (const platform of world().platforms) {
+        if (platform.crumble && platform.crumbleTime === 0) continue;
         if (player.x + player.r > platform.x && player.x - player.r < platform.x + platform.width && player.y + player.r > platform.y && player.y - player.r < platform.y + platform.height) {
           if (player.vx > 0) player.x = platform.x - player.r;
           else if (player.vx < 0) player.x = platform.x + platform.width + player.r;
@@ -117,10 +119,12 @@
 
       player.y += player.vy * step;
       for (const platform of world().platforms) {
+        if (platform.crumble && platform.crumbleTime === 0) continue;
         if (player.x + player.r > platform.x && player.x - player.r < platform.x + platform.width && player.y + player.r > platform.y && player.y - player.r < platform.y + platform.height) {
           if (player.vy > 0) player.y = platform.y - player.r;
           else if (player.vy < 0) player.y = platform.y + platform.height + player.r;
           player.vy = 0;
+          if (platform.crumble && platform.crumbleTime === null) platform.crumbleTime = .72;
         }
       }
     }
@@ -128,10 +132,16 @@
 
   function update(dt) {
     if (state === 'playing') {
+      world().platforms.forEach(platform => {
+        if (platform.crumbleTime !== null) platform.crumbleTime = Math.max(0, platform.crumbleTime - dt);
+      });
       player.vy += 1050 * dt; player.vx *= Math.pow(.994, dt * 60); movePlayer(dt);
       player.distance = Math.max(player.distance, player.x - world().start.x); player.best = Math.max(player.best, player.distance); updateUi();
       const goal = world().goal;
       if (Math.hypot(player.x - goal.x, player.y - goal.y) < 46) { win(); return; }
+      for (const spike of world().spikes) {
+        if (player.x + player.r > spike.x && player.x - player.r < spike.x + spike.width && player.y + player.r > spike.y - spike.height && player.y - player.r < spike.y) { fail(); return; }
+      }
       if (player.y > H + 180 || player.y < -280 || player.x < -120) fail();
       cameraX += (Math.max(0, Math.min(endX() - W, player.x - W * .32)) - cameraX) * Math.min(1, dt * 5);
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
@@ -212,7 +222,15 @@
       ctx.fill();
     }
     ctx.restore();
-    for (const p of world().platforms) { ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); }
+    for (const p of world().platforms) {
+      if (p.crumble && p.crumbleTime === 0) continue;
+      const shaking = p.crumbleTime !== null ? Math.sin(performance.now() / 35) * (1 - p.crumbleTime / .72) * 2 : 0;
+      ctx.save(); ctx.translate(shaking, 0); ctx.globalAlpha = p.crumbleTime === null ? 1 : .55 + p.crumbleTime / 2;
+      ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); ctx.restore();
+    }
+    for (const spike of world().spikes) {
+      ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.moveTo(spike.x, spike.y); ctx.lineTo(spike.x + spike.width / 2, spike.y - spike.height); ctx.lineTo(spike.x + spike.width, spike.y); ctx.closePath(); ctx.fill();
+    }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     ctx.globalAlpha = .14; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(g.x, g.y, glow + 16, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
     ctx.strokeStyle = world().accent; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(g.x, g.y, glow, 0, TAU); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(g.x, g.y, 5, 0, TAU); ctx.fill();
