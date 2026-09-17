@@ -76,7 +76,7 @@
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
     const final = worldIndex === worlds.length - 1;
-    showOverlay(final ? 'ALL WORLDS CLEAR' : 'WORLD CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
+    showOverlay(final ? 'ALL WORLDS CLEAR' : 'LEVEL CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
   }
   function togglePause() {
     if (state === 'playing') { state = 'paused'; $('pause').textContent = 'Resume'; showOverlay('PAUSED', 'Your destiny is waiting.', 'Resume'); }
