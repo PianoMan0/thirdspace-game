@@ -1,5 +1,6 @@
 (() => {
   const canvas = document.getElementById('game');
+  let particlesdos = [];
   const ctx = canvas.getContext('2d'); //context
   const W = 960, H = 540, TAU = Math.PI * 2;
   const worlds = LEVELS;
@@ -140,12 +141,24 @@
     for (const p of world().portals){
       if(Math.random() > 0.6){
         //random position on perim
-        const angle = Math.random() *360 //deg 0-360
-        const 
+        const angle = Math.random() * TAU //radians 0-360
+        const fuzzy = p.radius + ((Math.random() *60)-3)
+        const opacity = Math.random()
+        console.log("making a cute little particle")
+        particlesdos.push({
+          angle: angle,
+          radius: fuzzy, 
+          opacity: opacity,
+          centerx: p.entryx, 
+          centery: p.entryy,
+          lifespan: Math.random() *2,
+          particleradius: Math.random() *4
+        });
       }
     }
     pulse = Math.max(0, pulse - dt * 2);
     particles = particles.filter(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 220 * dt; p.life -= dt; return p.life > 0; });
+    particlesdos = particlesdos.filter(p => {p.lifespan -= dt; return p.lifespan > 0; });
   }
 
   function draw() {
@@ -164,12 +177,26 @@
         ctx.strokeStyle = '#240221';
         ctx.fillStyle = '#5f195a';
         ctx.lineWidth = 4; 
+        ctx.globalAlpha = 0.5;
         ctx.beginPath(); //new drawing
         ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
         ctx.stroke();
         ctx.fill();
-        ctx.globalAlpha = 0.5;
       }
+    //portal particles 
+    for (const pt of particlesdos){
+      const rectangularX = pt.centerx +(pt.radius * Math.cos(pt.angle)) //never in my life did i ever think id use this equation T-T
+      const rectangularY = pt.centery +(pt.radius * Math.sin(pt.angle))
+      ctx.globalAlpha = pt.opacity;
+      ctx.strokeStyle = '#240221';
+      ctx.fillStyle = '#5f195a';
+      ctx.lineWidth = 4; 
+      ctx.beginPath();
+      ctx.arc(rectangularX, rectangularY, pt.particleradius,0, TAU);
+      ctx.stroke();
+      ctx.fill();
+
+    }
     for (const p of world().platforms) { ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     ctx.globalAlpha = .14; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(g.x, g.y, glow + 16, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
