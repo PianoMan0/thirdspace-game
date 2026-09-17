@@ -109,7 +109,7 @@ const LEVELS = [
   {
     name: 'Needle Run',
     hint: 'ZIGZAG',
-    sky: '#3d5368',
+    sky: '#737438',
     accent: '#ffcf5c',
     start: { x: 80, y: 390 },
     goal: { x: 2310, y: 180 },
@@ -141,7 +141,7 @@ const LEVELS = [
   {
     name: 'Crumble Canyon',
     hint: 'NO LOITERING',
-    sky: '#704b4b',
+    sky: '#737438',
     accent: '#8ee3c3',
     start: { x: 80, y: 390 },
     goal: { x: 2260, y: 140 },
@@ -172,7 +172,7 @@ const LEVELS = [
   {
     name: 'Laser Hall',
     hint: 'RED LIGHT',
-    sky: '#283f4a',
+    sky: '#737438',
     accent: '#ff6b6b',
     start: { x: 80, y: 390 },
     goal: { x: 2390, y: 160 },
@@ -207,7 +207,7 @@ const LEVELS = [
   {
     name: 'The Long Way',
     hint: 'COMMIT',
-    sky: '#4c4268',
+    sky: '#737438',
     accent: '#f7aef8',
     start: { x: 80, y: 390 },
     goal: { x: 2510, y: 180 },
@@ -240,7 +240,7 @@ const LEVELS = [
   {
     name: 'Low Orbit',
     hint: 'STAY LOW',
-    sky: '#1f5260',
+    sky: '#737438',
     accent: '#ffe082',
     start: { x: 80, y: 400 },
     goal: { x: 2350, y: 300 },
