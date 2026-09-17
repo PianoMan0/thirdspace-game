@@ -37,7 +37,7 @@ const LEVELS = [
     ],
     lasers: [
       { x: 820, y: 245, width: 170, height: 8 },
-      { x: 1360, y: 190, width: 8, height: 130 },
+      { x: 1360, y: 140, width: 8, height: 130 },
       { x: 1690, y: 315, width: 110, height: 8 }
     ],
     portals: [{ entryx: 300, entryy: 350, exitx: 1200, exity: 200, radius: 25},]
