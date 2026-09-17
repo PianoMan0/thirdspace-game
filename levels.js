@@ -104,5 +104,169 @@ const LEVELS = [
     portals: [
       { x: 0, y: 470, width: 360, height: 70 },
     ]
+  },
+
+  {
+    name: 'Needle Run',
+    hint: 'ZIGZAG',
+    sky: '#3d5368',
+    accent: '#ffcf5c',
+    start: { x: 80, y: 390 },
+    goal: { x: 2310, y: 180 },
+    platforms: [
+      { x: 0, y: 470, width: 300, height: 70 },
+      { x: 390, y: 390, width: 130, height: 24 },
+      { x: 610, y: 270, width: 120, height: 24 },
+      { x: 820, y: 390, width: 140, height: 24 },
+      { x: 1080, y: 240, width: 120, height: 24 },
+      { x: 1320, y: 350, width: 150, height: 24 },
+      { x: 1600, y: 210, width: 120, height: 24 },
+      { x: 1850, y: 330, width: 140, height: 24 },
+      { x: 2110, y: 220, width: 260, height: 24 }
+    ],
+    spikes: [
+      { x: 435, y: 390, width: 42, height: 22 },
+      { x: 650, y: 270, width: 42, height: 22 },
+      { x: 1380, y: 350, width: 44, height: 22 },
+      { x: 1900, y: 330, width: 42, height: 22 }
+    ],
+    lasers: [
+      { x: 740, y: 305, width: 80, height: 8 },
+      { x: 1210, y: 190, width: 8, height: 120 },
+      { x: 1725, y: 255, width: 110, height: 8 }
+    ],
+    portals: []
+  },
+
+  {
+    name: 'Crumble Canyon',
+    hint: 'NO LOITERING',
+    sky: '#704b4b',
+    accent: '#8ee3c3',
+    start: { x: 80, y: 390 },
+    goal: { x: 2260, y: 140 },
+    platforms: [
+      { x: 0, y: 470, width: 330, height: 70 },
+      { x: 430, y: 400, width: 120, height: 24, crumble: true },
+      { x: 650, y: 320, width: 110, height: 24, crumble: true },
+      { x: 850, y: 430, width: 150, height: 24 },
+      { x: 1080, y: 300, width: 120, height: 24, crumble: true },
+      { x: 1310, y: 210, width: 140, height: 24 },
+      { x: 1550, y: 350, width: 120, height: 24, crumble: true },
+      { x: 1780, y: 260, width: 130, height: 24, crumble: true },
+      { x: 2040, y: 190, width: 270, height: 24 }
+    ],
+    spikes: [
+      { x: 890, y: 430, width: 42, height: 22 },
+      { x: 1355, y: 210, width: 42, height: 22 },
+      { x: 1815, y: 260, width: 42, height: 22 }
+    ],
+    lasers: [
+      { x: 560, y: 350, width: 90, height: 8 },
+      { x: 1455, y: 245, width: 8, height: 120 },
+      { x: 1915, y: 205, width: 100, height: 8 }
+    ],
+    portals: []
+  },
+
+  {
+    name: 'Laser Hall',
+    hint: 'RED LIGHT',
+    sky: '#283f4a',
+    accent: '#ff6b6b',
+    start: { x: 80, y: 390 },
+    goal: { x: 2390, y: 160 },
+    platforms: [
+      { x: 0, y: 470, width: 360, height: 70 },
+      { x: 470, y: 360, width: 150, height: 24 },
+      { x: 720, y: 360, width: 130, height: 24 },
+      { x: 950, y: 260, width: 140, height: 24 },
+      { x: 1190, y: 390, width: 130, height: 24 },
+      { x: 1430, y: 280, width: 150, height: 24 },
+      { x: 1690, y: 180, width: 120, height: 24 },
+      { x: 1930, y: 330, width: 140, height: 24 },
+      { x: 2180, y: 240, width: 260, height: 24 }
+    ],
+    spikes: [
+      { x: 520, y: 360, width: 42, height: 22 },
+      { x: 1230, y: 390, width: 42, height: 22 },
+      { x: 1970, y: 330, width: 42, height: 22 }
+    ],
+    lasers: [
+      { x: 620, y: 295, width: 100, height: 8 },
+      { x: 850, y: 235, width: 8, height: 130 },
+      { x: 1095, y: 325, width: 90, height: 8 },
+      { x: 1325, y: 215, width: 8, height: 140 },
+      { x: 1585, y: 145, width: 105, height: 8 },
+      { x: 1815, y: 245, width: 8, height: 130 },
+      { x: 2075, y: 270, width: 105, height: 8 }
+    ],
+    portals: []
+  },
+
+  {
+    name: 'The Long Way',
+    hint: 'COMMIT',
+    sky: '#4c4268',
+    accent: '#f7aef8',
+    start: { x: 80, y: 390 },
+    goal: { x: 2510, y: 180 },
+    platforms: [
+      { x: 0, y: 470, width: 260, height: 70 },
+      { x: 420, y: 410, width: 90, height: 24 },
+      { x: 650, y: 300, width: 100, height: 24 },
+      { x: 900, y: 420, width: 90, height: 24 },
+      { x: 1140, y: 250, width: 100, height: 24 },
+      { x: 1380, y: 370, width: 90, height: 24 },
+      { x: 1630, y: 200, width: 100, height: 24 },
+      { x: 1880, y: 330, width: 90, height: 24 },
+      { x: 2130, y: 150, width: 100, height: 24 },
+      { x: 2390, y: 260, width: 220, height: 24 }
+    ],
+    spikes: [
+      { x: 675, y: 300, width: 40, height: 22 },
+      { x: 925, y: 420, width: 40, height: 22 },
+      { x: 1660, y: 200, width: 40, height: 22 },
+      { x: 1910, y: 330, width: 40, height: 22 }
+    ],
+    lasers: [
+      { x: 510, y: 350, width: 105, height: 8 },
+      { x: 1245, y: 190, width: 8, height: 120 },
+      { x: 1975, y: 250, width: 110, height: 8 }
+    ],
+    portals: []
+  },
+
+  {
+    name: 'Low Orbit',
+    hint: 'STAY LOW',
+    sky: '#1f5260',
+    accent: '#ffe082',
+    start: { x: 80, y: 400 },
+    goal: { x: 2350, y: 300 },
+    platforms: [
+      { x: 0, y: 470, width: 340, height: 70 },
+      { x: 450, y: 420, width: 150, height: 24 },
+      { x: 700, y: 350, width: 130, height: 24 },
+      { x: 930, y: 410, width: 140, height: 24 },
+      { x: 1170, y: 300, width: 130, height: 24 },
+      { x: 1400, y: 380, width: 150, height: 24 },
+      { x: 1660, y: 290, width: 120, height: 24 },
+      { x: 1890, y: 370, width: 140, height: 24 },
+      { x: 2140, y: 300, width: 260, height: 24 }
+    ],
+    spikes: [
+      { x: 500, y: 420, width: 42, height: 22 },
+      { x: 975, y: 410, width: 42, height: 22 },
+      { x: 1440, y: 380, width: 42, height: 22 },
+      { x: 1940, y: 370, width: 42, height: 22 }
+    ],
+    lasers: [
+      { x: 610, y: 300, width: 90, height: 8 },
+      { x: 1075, y: 350, width: 8, height: 100 },
+      { x: 1555, y: 250, width: 100, height: 8 },
+      { x: 2035, y: 275, width: 8, height: 120 }
+    ],
+    portals: []
   }
 ];
