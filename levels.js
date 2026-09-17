@@ -108,7 +108,7 @@ const LEVELS = [
 
   {
     name: 'Needle Run',
-    hint: 'ZIGZAG',
+    hint: 'HARVEST',
     sky: '#737438',
     accent: '#ffcf5c',
     start: { x: 80, y: 390 },
@@ -140,7 +140,7 @@ const LEVELS = [
 
   {
     name: 'Crumble Canyon',
-    hint: 'NO LOITERING',
+    hint: 'HARVEST',
     sky: '#737438',
     accent: '#8ee3c3',
     start: { x: 80, y: 390 },
@@ -171,7 +171,7 @@ const LEVELS = [
 
   {
     name: 'Laser Hall',
-    hint: 'RED LIGHT',
+    hint: 'HARVEST',
     sky: '#737438',
     accent: '#ff6b6b',
     start: { x: 80, y: 390 },
@@ -206,7 +206,7 @@ const LEVELS = [
 
   {
     name: 'The Long Way',
-    hint: 'COMMIT',
+    hint: 'HARVEST',
     sky: '#737438',
     accent: '#f7aef8',
     start: { x: 80, y: 390 },
@@ -239,7 +239,7 @@ const LEVELS = [
 
   {
     name: 'Low Orbit',
-    hint: 'STAY LOW',
+    hint: 'HARVEST',
     sky: '#737438',
     accent: '#ffe082',
     start: { x: 80, y: 400 },
