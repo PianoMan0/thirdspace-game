@@ -74,7 +74,7 @@ const LEVELS = [
   },
 
   {
-    name: 'The Final Level',
+    name: 'Laser Paradise',
     hint: 'HARVEST',
     sky: '#737438',
     accent: '#7ed6a5',
