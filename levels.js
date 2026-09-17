@@ -8,6 +8,7 @@
 // Platforms: Each platform is an object with x, y, width and height properties.
 // Crumbling platforms: Platforms that crumble quickly (just set crumble: true on a platform)
 // Spikes: Each spike is an object with x, y (the base), width and height.
+// Lasers: Each laser is an object with x, y, width and height.
 
 // Notes: The x and y coordinates are the opposite of what they would be in a graphing calculator for instance
 // This is annoying but it's what gamedev folks usually do
@@ -34,6 +35,11 @@ const LEVELS = [
       { x: 1120, y: 430, width: 42, height: 22 },
       { x: 1570, y: 380, width: 44, height: 22 }
     ],
+    lasers: [
+      { x: 820, y: 245, width: 170, height: 8 },
+      { x: 1360, y: 190, width: 8, height: 130 },
+      { x: 1690, y: 315, width: 110, height: 8 }
+    ],
     portals: [{ entryx: 300, entryy: 350, exitx: 1200, exity: 200, radius: 25},]
   },
 
@@ -43,7 +49,7 @@ const LEVELS = [
     sky: '#737438',
     accent: '#ffd166',
     start: { x: 80, y: 360 },
-    goal: { x: 2110, y: 300 },
+    goal: { x: 2110, y: 150 },
     platforms: [
       { x: 0, y: 470, width: 300, height: 70 },
       { x: 400, y: 380, width: 120, height: 24, crumble: true },
@@ -58,6 +64,11 @@ const LEVELS = [
       { x: 690, y: 290, width: 42, height: 22 },
       { x: 970, y: 420, width: 40, height: 22 },
       { x: 1800, y: 400, width: 44, height: 22 }
+    ],
+    lasers: [
+      { x: 540, y: 325, width: 110, height: 8 },
+      { x: 1060, y: 250, width: 8, height: 120 },
+      { x: 1580, y: 205, width: 150, height: 8 }
     ],
     portals: []
   },
@@ -84,6 +95,11 @@ const LEVELS = [
       { x: 750, y: 440, width: 42, height: 22 },
       { x: 990, y: 280, width: 40, height: 22 },
       { x: 1870, y: 380, width: 44, height: 22 }
+    ],
+    lasers: [
+      { x: 840, y: 365, width: 110, height: 8 },
+      { x: 1360, y: 160, width: 8, height: 130 },
+      { x: 1980, y: 245, width: 140, height: 8 }
     ],
     portals: [
       { x: 0, y: 470, width: 360, height: 70 },

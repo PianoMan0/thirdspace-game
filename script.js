@@ -2,7 +2,7 @@
   const canvas = document.getElementById('game');
   let particlesdos = [];
   const ctx = canvas.getContext('2d'); //context
-  const W = 960, H = 540, TAU = Math.PI * 2;
+  const W = 960, H = 540, CEILING_Y = -80, TAU = Math.PI * 2;
   const worlds = LEVELS;
   let dpr = 1, viewW = 1, viewH = 1, worldIndex = 0, deaths = 0, state = 'playing';
   let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], pulse = 0;
@@ -68,10 +68,16 @@
   canvas.addEventListener('pointerdown', startDrag); canvas.addEventListener('pointermove', moveDrag);
   canvas.addEventListener('pointerup', releaseDrag); canvas.addEventListener('pointercancel', releaseDrag);
 
-  function fail() {
+  function fail(reason = 'boundary') {
     if (state !== 'playing') return;
     state = 'dead'; deaths++; burst(player.x, player.y, '#fff', 28); updateUi();
-    showOverlay('LOST IN THE FIELDS', 'Thou hast perished, but thou can rebirth :3.', 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+    const messages = {
+      boundary: ['LOST IN THE FIELDS', 'Thou drifted beyond the cruel bounderies of this world.'],
+      spikes: ['PIERCED BY SPIKES', 'Thou hast perished, but thou can rebirth :3.'],
+      laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!']
+    };
+    const [title, text] = messages[reason] || messages.boundary;
+    showOverlay(title, text, 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
   } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
@@ -140,9 +146,12 @@
       const goal = world().goal;
       if (Math.hypot(player.x - goal.x, player.y - goal.y) < 46) { win(); return; }
       for (const spike of world().spikes) {
-        if (player.x + player.r > spike.x && player.x - player.r < spike.x + spike.width && player.y + player.r > spike.y - spike.height && player.y - player.r < spike.y) { fail(); return; }
+        if (player.x + player.r > spike.x && player.x - player.r < spike.x + spike.width && player.y + player.r > spike.y - spike.height && player.y - player.r < spike.y) { fail('spikes'); return; }
       }
-      if (player.y > H + 180 || player.y < -280 || player.x < -120) fail();
+      for (const laser of world().lasers || []) {
+        if (player.x + player.r > laser.x && player.x - player.r < laser.x + laser.width && player.y + player.r > laser.y && player.y - player.r < laser.y + laser.height) { fail('laser'); return; }
+      }
+      if (player.y > H + 180 || player.y < CEILING_Y || player.x < -120) fail('boundary');
       cameraX += (Math.max(0, Math.min(endX() - W, player.x - W * .32)) - cameraX) * Math.min(1, dt * 5);
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
@@ -230,6 +239,19 @@
     }
     for (const spike of world().spikes) {
       ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.moveTo(spike.x, spike.y); ctx.lineTo(spike.x + spike.width / 2, spike.y - spike.height); ctx.lineTo(spike.x + spike.width, spike.y); ctx.closePath(); ctx.fill();
+    }
+    for (const laser of world().lasers || []) {
+      const flicker = .75 + Math.sin(performance.now() / 90 + laser.x) * .15;
+      ctx.save();
+      ctx.globalAlpha = .22 * flicker;
+      ctx.fillStyle = '#ff3158';
+      ctx.fillRect(laser.x - 5, laser.y - 5, laser.width + 10, laser.height + 10);
+      ctx.globalAlpha = flicker;
+      ctx.fillStyle = '#ff3158';
+      ctx.fillRect(laser.x, laser.y, laser.width, laser.height);
+      ctx.fillStyle = '#fff3f5';
+      ctx.fillRect(laser.x, laser.y + laser.height * .3, laser.width, Math.max(2, laser.height * .4));
+      ctx.restore();
     }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     ctx.globalAlpha = .14; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(g.x, g.y, glow + 16, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
