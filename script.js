@@ -10,7 +10,7 @@
   const $ = id => document.getElementById(id);
   const world = () => worlds[worldIndex];
   const endX = () => { const lastPlatform = world().platforms[world().platforms.length - 1]; return lastPlatform.x + lastPlatform.width; };
-
+  let timer = 0; // you can use this as a timer :P
   function resize() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     viewW = innerWidth; viewH = innerHeight;
@@ -74,7 +74,7 @@
     const messages = {
       boundary: ['LOST IN THE FIELDS', 'Thou drifted beyond the cruel bounderies of this world.'],
       spikes: ['PIERCED BY SPIKES', 'Thou hast perished, but thou can rebirth :3.'],
-      laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!']
+      laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!'],
     };
     const [title, text] = messages[reason] || messages.boundary;
     showOverlay(title, text, 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
@@ -135,7 +135,23 @@
       }
     }
   }
-
+  function teleport(){
+    ctx.save();
+    ctx.globalAlpha = 0.4; 
+    ctx.filter = 'blur(40px)';
+    //gradient
+    const gradient = ctx.createRadicalGradient(
+      viewW/2, viewH/2, 50, //inner
+      viewW/2, viewH/2, Math.max(viewW, viewH)
+    );
+    gradient.addColorStop(0,'#a82eb0')
+    gradient.addColorStop(0.75,'#65066c')
+    gradient.addColorStop(0.6,'#240226')
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0,0,viewW,viewW)
+    ctx.restore();
+    timer = 0.2;
+  }
   function update(dt) {
     if (state === 'playing') {
       world().platforms.forEach(platform => {
@@ -155,6 +171,10 @@
       cameraX += (Math.max(0, Math.min(endX() - W, player.x - W * .32)) - cameraX) * Math.min(1, dt * 5);
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
+    }
+    //timer 
+    if(timer > 0){
+      timer = timer - dt
     }
     //portal particles
     for (const p of world().portals){
@@ -187,6 +207,13 @@
           lifespan: Math.random() *2,
           particleradius: Math.random() *7
         });
+      //portal collisions 
+      }
+      const away = Math.hypot((player.x - p.entryx),(player.y - p.entryy)) //the distance formula too smh.
+      if(away <= p.radius+1+player.r){
+        teleport();
+        player.x = p.exitx;
+        player.y = p.exity;
       }
     }
     pulse = Math.max(0, pulse - dt * 2);
@@ -204,24 +231,13 @@
     for (let i = 0; i < 90; i++) { const x = (i * 173) % (endX() + W), y = (i * 97) % H; ctx.globalAlpha = .15 + (i % 4) * .04; ctx.fillRect(x, y, 1 + i % 2, 1 + i % 2); }
     ctx.globalAlpha = 1;
     //sorry lol this looks out of place im a crazy commenter if u want we can delete at the end tho
-    //portals 
-      for (const p of world().portals){
-        const pulseradiusportal = p.radius;
-        ctx.strokeStyle = '#240221';
-        ctx.fillStyle = '#5f195a';
-        ctx.lineWidth = 4; 
-        ctx.globalAlpha = 0.5;
-        ctx.beginPath(); //new drawing
-        ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
-        ctx.stroke();
-        ctx.fill();
-      }
     //portal particles 
     ctx.save();
     for (const pt of particlesdos){
       const rectangularX = pt.centerx +(pt.radius * Math.cos(pt.angle)) //never in my life did i ever think id use this equation T-T
       const rectangularY = pt.centery +(pt.radius * Math.sin(pt.angle))
       ctx.globalAlpha = pt.opacity;
+      ctx.filter = 'blur(3px)'
       ctx.strokeStyle = '#240221';
       ctx.fillStyle = '#5f195a';
       ctx.lineWidth = 4; 
@@ -230,6 +246,19 @@
       ctx.stroke();
       ctx.fill();
     }
+    //portals 
+      for (const p of world().portals){
+        const pulseradiusportal = p.radius;
+        ctx.filter = 'blur(2px)'
+        ctx.strokeStyle = '#240221';
+        ctx.fillStyle = '#5f195a';
+        ctx.lineWidth = 10; 
+        ctx.globalAlpha = 0.6;
+        ctx.beginPath(); //new drawing
+        ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
+        ctx.stroke();
+        ctx.fill();
+      }
     ctx.restore();
     for (const p of world().platforms) {
       if (p.crumble && p.crumbleTime === 0) continue;
