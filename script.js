@@ -201,7 +201,6 @@
         const angle = Math.random() * TAU //radians 0-360
         const fuzzy = p.radius + ((Math.random() *60)-3)
         const opacity = Math.random()
-        console.log("making a cute little particle")
         particlesdos.push({
           angle: angle,
           radius: fuzzy, 
@@ -276,20 +275,45 @@
     ctx.restore();
     //pumpkins
     for (const pump of world().pumpkins){
+      ctx.filter = 'none';
       ctx.fillStyle = "#73b591";
       ctx.beginPath(); 
       //stem
-      ctx.moveTo(pump.x - 10, pump.y - 80); //translate
-      ctx.quadraticCurveTo(pump.x - 20, pump.y-120, pump.x-5, pump.y-120);
-      ctx.quadraticCurveTo(pump.x + 10, pump.y-110, pump.x+10, pump.y-80);
+      ctx.moveTo(pump.x - 5, pump.y - 8); //translate
+      ctx.quadraticCurveTo(pump.x - 20, pump.y-90, pump.x, pump.y-50);
+      ctx.quadraticCurveTo(pump.x, pump.y-55, pump.x, pump.y-40);
       ctx.closePath(); 
       ctx.fill();
-      //
+      //bleh
       ctx.fillStyle = '#d79616'
       ctx.strokeStyle = "#9f6e0b"
       ctx.lineWidth = 3; 
+      //1
+      ctx.beginPath();
+      ctx.ellipse(pump.x-40,pump.y,15,35,Math.PI/30,0,TAU);
+      ctx.fill();
+      ctx.stroke();
+      //2
+      ctx.beginPath();
+      ctx.ellipse(pump.x+40,pump.y,15,35,Math.PI/30,0,-TAU);
+      ctx.fill();
+      ctx.stroke();
+      //main
+      ctx.beginPath();
+      ctx.ellipse(pump.x-20,pump.y,20,38,Math.PI/100,0,TAU);
+      ctx.fill();
+      ctx.stroke();
       //
-      ctx.beginPath()
+      ctx.beginPath();
+      ctx.ellipse(pump.x+20,pump.y,20,38,Math.PI/100,0,-TAU);
+      ctx.fill();
+      ctx.stroke();
+      //
+      ctx.fillStyle = "#f1bd55";
+      ctx.beginPath(); 
+      ctx.ellipse(pump.x, pump.y,20,40,0,0,TAU);
+      ctx.fill(); 
+      ctx.stroke();
     }
     for (const p of world().platforms) {
       if (p.crumble && p.crumbleTime === 0) continue;
