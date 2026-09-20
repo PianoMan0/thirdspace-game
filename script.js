@@ -251,7 +251,7 @@
       const rectangularX = pt.centerx +(pt.radius * Math.cos(pt.angle)) //never in my life did i ever think id use this equation T-T
       const rectangularY = pt.centery +(pt.radius * Math.sin(pt.angle))
       ctx.globalAlpha = pt.opacity;
-      ctx.filter = 'blur(3px)'
+      ctx.filter = 'blur(5px)'
       ctx.strokeStyle = '#240221';
       ctx.fillStyle = '#5f195a';
       ctx.lineWidth = 4; 
@@ -263,7 +263,7 @@
     //portals 
       for (const p of world().portals){
         const pulseradiusportal = p.radius;
-        ctx.filter = 'blur(2px)'
+        ctx.filter = 'blur(6px)'
         ctx.strokeStyle = '#240221';
         ctx.fillStyle = '#5f195a';
         ctx.lineWidth = 10; 
@@ -274,6 +274,23 @@
         ctx.fill();
       }
     ctx.restore();
+    //pumpkins
+    for (const pump of world().pumpkins){
+      ctx.fillStyle = "#73b591";
+      ctx.beginPath(); 
+      //stem
+      ctx.moveTo(pump.x - 10, pump.y - 80); //translate
+      ctx.quadraticCurveTo(pump.x - 20, pump.y-120, pump.x-5, pump.y-120);
+      ctx.quadraticCurveTo(pump.x + 10, pump.y-110, pump.x+10, pump.y-80);
+      ctx.closePath(); 
+      ctx.fill();
+      //
+      ctx.fillStyle = '#d79616'
+      ctx.strokeStyle = "#9f6e0b"
+      ctx.lineWidth = 3; 
+      //
+      ctx.beginPath()
+    }
     for (const p of world().platforms) {
       if (p.crumble && p.crumbleTime === 0) continue;
       const shaking = p.crumbleTime !== null ? Math.sin(performance.now() / 35) * (1 - p.crumbleTime / .72) * 2 : 0;

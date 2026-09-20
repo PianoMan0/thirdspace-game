@@ -2,12 +2,17 @@
 
 //button :P
 console.log("EHLLO>");
+
 document.getElementById("rat").addEventListener('click', async function() {
   console.log("click detected");
   await playStartAnimation();
   console.log("change");
   window.location.href = 'meow.html';
 });
+//story 
+document.getElementById("fat").addEventListener('click', () => {
+  window.location.href = 'story.html'
+})
 //background movement
 const bg = document.getElementById("bg_div");
 function playStartAnimation() {
