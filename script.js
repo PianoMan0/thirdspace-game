@@ -233,7 +233,7 @@
       }
     }
     //pumpkin detection
-    for (pk of world().pumpkins){
+    for(const pk of world().pumpkins){
       //a pumpkin is 110 width and 80 height
       const pv = player.x - pk.x // from the center of the pumkin how far is the player? and it gives the mag and dir
       const dist = Math.hypot((player.x - pk.x),(player.y - pk.y)) //is that...the distance formula??
@@ -242,9 +242,9 @@
           secretmode = !secretmode
           pk.secret = true; 
           //
-          const dir = pv <0? -1: 1; //js the direciton
-          playerx = pk.x + (dir*55+player.r+2);
-          playery = pk.y;
+          const dir = pv <0? 1: -1; //js the direciton
+          player.x = pk.x + dir*(55+player.r+2);
+          player.y = pk.y;
           console.log("AJHHH");
           player.vx = 0; 
           player.vy = 0; 
