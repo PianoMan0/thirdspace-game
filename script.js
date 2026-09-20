@@ -234,16 +234,25 @@
     }
     //pumpkin detection
     for (pk of world().pumpkins){
-      const dist = Math.hypot((player.x - pk.x),(player.y - pk.y))
+      //a pumpkin is 110 width and 80 height
+      const pv = player.x - pk.x // from the center of the pumkin how far is the player? and it gives the mag and dir
+      const dist = Math.hypot((player.x - pk.x),(player.y - pk.y)) //is that...the distance formula??
       if(dist < 55+player.r){
         if(!pk.secret){
-          secretmode = true
+          secretmode = !secretmode
           pk.secret = true; 
+          //
+          const dir = pv <0? -1: 1; //js the direciton
+          playerx = pk.x + (dir*55+player.r+2);
+          playery = pk.y;
           console.log("AJHHH");
           player.vx = 0; 
           player.vy = 0; 
+        }else{
+          pk.secret = false;
         }
       }
+      
     }
     if(!insideportal){
       portalstate = false;
