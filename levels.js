@@ -32,7 +32,6 @@ const LEVELS = [
     ],
     spikes: [
       { x: 610, y: 410, width: 40, height: 22 },
-      { x: 1120, y: 430, width: 42, height: 22 },
       { x: 1570, y: 380, width: 44, height: 22 }
     ],
     lasers: [

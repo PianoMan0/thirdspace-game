@@ -15,6 +15,7 @@
   let reduce = false;
   let portalup = false; 
   let portalstate = false; 
+  let portalexit = [0,0]
   function resize() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     viewW = innerWidth; viewH = innerHeight;
@@ -139,18 +140,15 @@
       }
     }
   }
-  function timerfunc(dt){
-    //timer 
-    if(timer >= 0){
-      timer -= dt;
-      return false;
-    }else{
-      return true;
-    }
-  }
   function update(dt) {
-    if (timerfunc(dt)){
-      reduce = true;
+    if(timer > 0){
+      timer -= dt;
+      if(timer <= 0 ){
+        timer = 0; 
+        reduce = true; 
+        player.x = portalexit[0];
+        player.y = portalexit[1];
+      }
     }
     if(reduce){
       if(portal_alpha > 0){
@@ -158,10 +156,10 @@
       }else{
         reduce = false;
         portalup = false; 
-        portalstate = false; 
       }
     }
     if(portalup) return;
+    //normal stuff
     if (state === 'playing') {
       world().platforms.forEach(platform => {
         if (platform.crumbleTime !== null) platform.crumbleTime = Math.max(0, platform.crumbleTime - dt);
@@ -181,6 +179,7 @@
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
     }
+    let insideportal = false
     //portal particles
     for (const p of world().portals){
       //common particles
@@ -215,15 +214,21 @@
       //portal collisions 
       }
       const away = Math.hypot((player.x - p.entryx),(player.y - p.entryy)) //the distance formula too smh.
-      if(away <= p.radius+1+player.r && !portalstate){
-        portalstate = true 
-        portalup = true;
-        portal_alpha = 0.4; 
-        timer = 0.3; 
-        reduce = false;
-        //player.x = p.exitx;
-        //player.y = p.exity;
+      if(away <= p.radius+1+player.r){
+        insideportal = true; 
+        if(!portalstate){
+          portalstate = true 
+          portalup = true;
+          portal_alpha = 0.4; 
+          timer = 2.0; 
+          reduce = false;
+          //
+          portalexit = [p.exitx,p.exity]
+        }
       }
+    }
+    if(!insideportal){
+      portalstate = false;
     }
     pulse = Math.max(0, pulse - dt * 2);
     particles = particles.filter(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 220 * dt; p.life -= dt; return p.life > 0; });
