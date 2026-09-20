@@ -373,7 +373,22 @@
       ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); ctx.restore();
     }
     for (const spike of world().spikes) {
-      ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.moveTo(spike.x, spike.y); ctx.lineTo(spike.x + spike.width / 2, spike.y - spike.height); ctx.lineTo(spike.x + spike.width, spike.y); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#eee9dc'; 
+      ctx.beginPath(); 
+      ctx.moveTo(spike.x, spike.y); 
+      ctx.lineTo(spike.x + spike.width / 2, spike.y - spike.height);
+      ctx.lineTo(spike.x + spike.width, spike.y);
+      ctx.closePath(); 
+      ctx.fill();
+      if(spike.text){
+          ctx.filter = "none";
+          ctx.font = "20px sans-serif"
+          ctx.textAlign = "center"
+          ctx.fillStyle = "#e8cc93"
+          ctx.fillText("Spikes", spike.x+10, spike.y-60)
+          ctx.font = "bold 20px sans-serif"
+          ctx.fillText("impale you", spike.x+15, spike.y-40)
+      }
     }
     for (const laser of world().lasers || []) {
       const flicker = .75 + Math.sin(performance.now() / 90 + laser.x) * .15;
@@ -387,14 +402,70 @@
       ctx.fillStyle = '#fff3f5';
       ctx.fillRect(laser.x, laser.y + laser.height * .3, laser.width, Math.max(2, laser.height * .4));
       ctx.restore();
+      if(laser.text){
+          ctx.filter = "none";
+          ctx.font = "20px sans-serif"
+          ctx.textAlign = "center"
+          ctx.fillStyle = "#e8cc93"
+          ctx.fillText("Lazers", laser.x+100, laser.y-50)
+          ctx.font = "bold 20px sans-serif"
+          ctx.fillText("burn you", laser.x+95, laser.y-30)
+      }
     }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
-    ctx.globalAlpha = .14; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(g.x, g.y, glow + 16, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
-    ctx.strokeStyle = world().accent; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(g.x, g.y, glow, 0, TAU); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(g.x, g.y, 5, 0, TAU); ctx.fill();
+    //
+    ctx.globalAlpha = .14; 
+    ctx.fillStyle = world().accent; 
+    ctx.beginPath(); 
+    ctx.arc(g.x, g.y, glow + 16, 0, TAU); 
+    ctx.fill(); 
+    ctx.globalAlpha = 1;
+    //
+    ctx.strokeStyle = world().accent; 
+    ctx.lineWidth = 3; 
+    ctx.beginPath(); 
+    ctx.arc(g.x, g.y, glow, 0, TAU); 
+    ctx.stroke(); 
+    ctx.fillStyle = '#ffffff'; 
+    ctx.beginPath(); 
+    ctx.arc(g.x, g.y, 5, 0, TAU); 
+    ctx.fill();
+    //
     for (const p of particles) { ctx.globalAlpha = Math.max(0, p.life * 1.5); ctx.fillStyle = p.color; ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size); }
     ctx.globalAlpha = 1; player.trail.forEach((t, i) => { ctx.globalAlpha = i / player.trail.length * .3; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(t.x, t.y, player.r * (i / player.trail.length), 0, TAU); ctx.fill(); }); ctx.globalAlpha = 1;
-    if (drag) { const dx = drag.point.x - player.x, dy = drag.point.y - player.y, length = Math.hypot(dx, dy), pull = Math.min(length, 130); ctx.globalAlpha = .8; ctx.strokeStyle = world().accent; ctx.lineWidth = 3; ctx.setLineDash([5, 7]); ctx.beginPath(); ctx.moveTo(player.x, player.y); ctx.lineTo(player.x + dx / (length || 1) * pull, player.y + dy / (length || 1) * pull); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = .18; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(player.x, player.y, 24 + pull / 4, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; }
-    ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(player.x, player.y, player.r + pulse * 8, 0, TAU); ctx.fill(); ctx.fillStyle = '#f8f5ed'; ctx.beginPath(); ctx.arc(player.x, player.y, 7, 0, TAU); ctx.fill(); ctx.restore();
+    if (drag) { 
+      const dx = drag.point.x - player.x, dy = drag.point.y - player.y, length = Math.hypot(dx, dy), pull = Math.min(length, 130); ctx.globalAlpha = .8; 
+      ctx.strokeStyle = world().accent; ctx.lineWidth = 3; 
+      ctx.setLineDash([5, 7]); 
+      ctx.beginPath(); 
+      ctx.moveTo(player.x, player.y); 
+      ctx.lineTo(player.x + dx / (length || 1) * pull, player.y + dy / (length || 1) * pull); 
+      ctx.stroke(); 
+      ctx.setLineDash([]); 
+      ctx.globalAlpha = .18; 
+      ctx.fillStyle = world().accent; 
+      ctx.beginPath(); 
+      ctx.arc(player.x, player.y, 24 + pull / 4, 0, TAU); 
+      ctx.fill(); 
+      ctx.globalAlpha = 1; }
+      //DRAWING OUTER CIRCLE
+      ctx.fillStyle = world().accent; 
+      ctx.beginPath(); 
+      ctx.arc(player.x, player.y, player.r + pulse * 8, 0, TAU); 
+      ctx.fill(); 
+      //INNER CIRCLE
+      ctx.fillStyle = '#f8f5ed'; 
+      ctx.beginPath(); 
+      ctx.arc(player.x, player.y, 7, 0, TAU); 
+      ctx.fill(); 
+      ctx.restore();
+      //EARS
+      ctx.moveTo(player.x+10,player.y +10);
+      ctx.lineTo(player.x + player.r / 2, player.y - player.r);
+      ctx.lineTo(player.x + player.r, player.y);
+      ctx.fillStyle = '#f8f5ed'; 
+      ctx.fill();
+
     //overlay teleport
     if(portal_alpha >0){
       ctx.save();
