@@ -122,6 +122,7 @@
       player.x += player.vx * step;
       for (const platform of world().platforms) {
         if (platform.crumble && platform.crumbleTime === 0) continue;
+        if (platform.secret && !secretmode) continue;
         if (player.x + player.r > platform.x && player.x - player.r < platform.x + platform.width && player.y + player.r > platform.y && player.y - player.r < platform.y + platform.height) {
           if (player.vx > 0) player.x = platform.x - player.r;
           else if (player.vx < 0) player.x = platform.x + platform.width + player.r;
@@ -299,6 +300,15 @@
         ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
         ctx.stroke();
         ctx.fill();
+        if(p.text){
+          ctx.filter = "none";
+          ctx.font = "20px sans-serif"
+          ctx.textAlign = "center"
+          ctx.fillStyle = "#e8cc93"
+          ctx.fillText("Portals bring you to", p.entryx, p.entryy-90)
+          ctx.font = "bold 20px sans-serif"
+          ctx.fillText("new places", p.entryx, p.entryy-70)
+        }
       }
     ctx.restore();
     //pumpkins
@@ -342,6 +352,16 @@
       ctx.ellipse(pump.x, pump.y,20,40,0,0,TAU);
       ctx.fill(); 
       ctx.stroke();
+      //text
+
+      if(pump.text){
+        ctx.font = "20px sans-serif"
+        ctx.textAlign = "center"
+        ctx.fillStyle = "#e8cc93"
+        ctx.fillText("Pumpkins reveal", pump.x, pump.y-90)
+        ctx.font = "bold 20px sans-serif"
+        ctx.fillText("new paths", pump.x, pump.y-70)
+      }
     }
     for (const p of world().platforms) {
       if (p.crumble && p.crumbleTime === 0) continue;

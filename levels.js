@@ -15,7 +15,7 @@
 
 const LEVELS = [
   {
-    name: 'Welcome',
+    name: 'The Basics',
     hint: 'HARVEST',
     sky: '#737438',
     accent: '#ff7654',
@@ -24,9 +24,9 @@ const LEVELS = [
     platforms: [
       { x: 0, y: 470, width: 420, height: 70},
       { x: 530, y: 410, width: 180, height: 24, crumble: true },
-      { x: 790, y: 335, width: 170, height: 24, secret: true},
-      { x: 1040, y: 430, width: 220, height: 24 },
-      { x: 1280, y: 300, width: 150, height: 24, crumble: true },
+      { x: 790, y: 335, width: 170, height: 24,},
+      { x: 1040, y: 430, width: 220, height: 24,},
+      { x: 1280, y: 405, width: 150, height: 24, secret: true, crumble: true },
       { x: 1480, y: 380, width: 200, height: 24 },
       { x: 1800, y: 280, width: 200, height: 24 }
     ],
@@ -40,10 +40,10 @@ const LEVELS = [
       { x: 1690, y: 315, width: 110, height: 8 }
     ],
     portals: [
-      { entryx: 300, entryy: 350, exitx: 1200, exity: 200, radius: 25},
+      { entryx: 1200, entryy: 350, exitx: 1400, exity: 200, radius: 25, text: true},
     ],
     pumpkins: [
-      {x: 300, y: 430, secret: false},
+      {x: 1150, y: 400, secret: false, text: true},
     ]
   },
 
@@ -74,7 +74,8 @@ const LEVELS = [
       { x: 1060, y: 250, width: 8, height: 120 },
       { x: 1580, y: 205, width: 150, height: 8 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   },
 
   {
@@ -106,8 +107,9 @@ const LEVELS = [
       { x: 1980, y: 245, width: 140, height: 8 }
     ],
     portals: [
-      { x: 0, y: 470, width: 360, height: 70 },
-    ]
+      { x: 0, y: 470, width: 360, height: 70, text: false },
+    ],
+    pumpkins: [], 
   },
 
   {
@@ -139,7 +141,8 @@ const LEVELS = [
       { x: 1210, y: 190, width: 8, height: 120 },
       { x: 1725, y: 255, width: 110, height: 8 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   },
 
   {
@@ -170,7 +173,8 @@ const LEVELS = [
       { x: 1455, y: 245, width: 8, height: 120 },
       { x: 1915, y: 205, width: 100, height: 8 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   },
 
   {
@@ -205,7 +209,8 @@ const LEVELS = [
       { x: 1815, y: 245, width: 8, height: 130 },
       { x: 2075, y: 270, width: 105, height: 8 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   },
 
   {
@@ -238,7 +243,8 @@ const LEVELS = [
       { x: 1245, y: 190, width: 8, height: 120 },
       { x: 1975, y: 250, width: 110, height: 8 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   },
 
   {
@@ -271,6 +277,7 @@ const LEVELS = [
       { x: 1555, y: 250, width: 100, height: 8 },
       { x: 2035, y: 275, width: 8, height: 120 }
     ],
-    portals: []
+    portals: [],
+    pumpkins: [], 
   }
 ];
