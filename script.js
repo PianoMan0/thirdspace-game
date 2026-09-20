@@ -448,23 +448,48 @@
       ctx.arc(player.x, player.y, 24 + pull / 4, 0, TAU); 
       ctx.fill(); 
       ctx.globalAlpha = 1; }
+      const currentR = player.r + pulse * 8;
+      //EARS
+      ctx.fillStyle = world().accent; 
+      ctx.beginPath();
+      ctx.moveTo(player.x-currentR,player.y-currentR);
+      ctx.lineTo(player.x - currentR /3, player.y - currentR);
+      ctx.lineTo(player.x - currentR/1.2, player.y);
+      ctx.fill();
+      //
+      ctx.fillStyle = world().accent; 
+      ctx.beginPath();
+      ctx.moveTo(player.x+currentR,player.y-currentR);
+      ctx.lineTo(player.x + currentR /3, player.y - currentR);
+      ctx.lineTo(player.x + currentR/1.2, player.y);
+      ctx.fill();
       //DRAWING OUTER CIRCLE
       ctx.fillStyle = world().accent; 
       ctx.beginPath(); 
-      ctx.arc(player.x, player.y, player.r + pulse * 8, 0, TAU); 
+      ctx.arc(player.x, player.y, currentR, 0, TAU); 
       ctx.fill(); 
       //INNER CIRCLE
       ctx.fillStyle = '#f8f5ed'; 
       ctx.beginPath(); 
       ctx.arc(player.x, player.y, 7, 0, TAU); 
       ctx.fill(); 
-      ctx.restore();
-      //EARS
-      ctx.moveTo(player.x+10,player.y +10);
-      ctx.lineTo(player.x + player.r / 2, player.y - player.r);
-      ctx.lineTo(player.x + player.r, player.y);
-      ctx.fillStyle = '#f8f5ed'; 
+      //eyes
+      ctx.beginPath();
+      ctx.fillStyle = '#5e0d0d';
+      ctx.ellipse(player.x-currentR*0.55,player.y-currentR*0.1,2,4,Math.PI/30,0,TAU);
       ctx.fill();
+      // 
+      ctx.beginPath();
+      ctx.fillStyle = '#5e0d0d';
+      ctx.ellipse(player.x+currentR*0.55,player.y-currentR*0.1,2,4,Math.PI/30,0,TAU);
+      ctx.fill();
+      //mouth
+      ctx.beginPath();
+      ctx.fillStyle = '#5e0d0d';
+      ctx.arc(player.x, player.y+4, currentR*0.5,0, Math.PI,false);
+      ctx.fill();
+      //done player
+      ctx.restore();
 
     //overlay teleport
     if(portal_alpha >0){
