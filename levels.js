@@ -24,7 +24,7 @@ const LEVELS = [
     platforms: [
       { x: 0, y: 470, width: 420, height: 70},
       { x: 530, y: 410, width: 180, height: 24, crumble: true },
-      { x: 790, y: 335, width: 170, height: 24 },
+      { x: 790, y: 335, width: 170, height: 24, secret: true},
       { x: 1040, y: 430, width: 220, height: 24 },
       { x: 1280, y: 300, width: 150, height: 24, crumble: true },
       { x: 1480, y: 380, width: 200, height: 24 },
@@ -43,7 +43,7 @@ const LEVELS = [
       { entryx: 300, entryy: 350, exitx: 1200, exity: 200, radius: 25},
     ],
     pumpkins: [
-      {x: 300, y: 200},
+      {x: 300, y: 430, secret: false},
     ]
   },
 

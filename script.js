@@ -15,7 +15,8 @@
   let reduce = false;
   let portalup = false; 
   let portalstate = false; 
-  let portalexit = [0,0]
+  let portalexit = [0,0]; 
+  let secretmode = false;
   function resize() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     viewW = innerWidth; viewH = innerHeight;
@@ -141,6 +142,7 @@
     }
   }
   function update(dt) {
+    //KEEP AT TOP
     if(timer > 0){
       timer -= dt;
       if(timer <= 0 ){
@@ -158,7 +160,11 @@
         portalup = false; 
       }
     }
-    if(portalup) return;
+    if(portalup){
+      burst(player.x, player.y, "#a70ac7");
+      return;
+    }
+
     //normal stuff
     if (state === 'playing') {
       world().platforms.forEach(platform => {
@@ -223,6 +229,19 @@
           reduce = false;
           //
           portalexit = [p.exitx,p.exity]
+        }
+      }
+    }
+    //pumpkin detection
+    for (pk of world().pumpkins){
+      const dist = Math.hypot((player.x - pk.x),(player.y - pk.y))
+      if(dist < 55+player.r){
+        if(!pk.secret){
+          secretmode = true
+          pk.secret = true; 
+          console.log("AJHHH");
+          player.vx = 0; 
+          player.vy = 0; 
         }
       }
     }
@@ -317,9 +336,12 @@
     }
     for (const p of world().platforms) {
       if (p.crumble && p.crumbleTime === 0) continue;
+      if (p.secret && !secretmode) continue;
       const shaking = p.crumbleTime !== null ? Math.sin(performance.now() / 35) * (1 - p.crumbleTime / .72) * 2 : 0;
       ctx.save(); ctx.translate(shaking, 0); ctx.globalAlpha = p.crumbleTime === null ? 1 : .55 + p.crumbleTime / 2;
-      ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); ctx.restore();
+      const color = p.secret? "#57ff73" :"#eee9dc"
+      ctx.fillStyle = color; 
+      ctx.beginPath(); ctx.roundRect(p.x, p.y, p.width, p.height, Math.min(9, p.height / 2)); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(p.x, p.y + p.height - 4, p.width, 4); ctx.restore();
     }
     for (const spike of world().spikes) {
       ctx.fillStyle = '#eee9dc'; ctx.beginPath(); ctx.moveTo(spike.x, spike.y); ctx.lineTo(spike.x + spike.width / 2, spike.y - spike.height); ctx.lineTo(spike.x + spike.width, spike.y); ctx.closePath(); ctx.fill();
