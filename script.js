@@ -11,6 +11,10 @@
   const world = () => worlds[worldIndex];
   const endX = () => { const lastPlatform = world().platforms[world().platforms.length - 1]; return lastPlatform.x + lastPlatform.width; };
   let timer = 0; // you can use this as a timer :P
+  let portal_alpha = 0 
+  let reduce = false;
+  let portalup = false; 
+  let portalstate = false; 
   function resize() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     viewW = innerWidth; viewH = innerHeight;
@@ -135,24 +139,29 @@
       }
     }
   }
-  function teleport(){
-    ctx.save();
-    ctx.globalAlpha = 0.4; 
-    ctx.filter = 'blur(40px)';
-    //gradient
-    const gradient = ctx.createRadicalGradient(
-      viewW/2, viewH/2, 50, //inner
-      viewW/2, viewH/2, Math.max(viewW, viewH)
-    );
-    gradient.addColorStop(0,'#a82eb0')
-    gradient.addColorStop(0.75,'#65066c')
-    gradient.addColorStop(0.6,'#240226')
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0,0,viewW,viewW)
-    ctx.restore();
-    timer = 0.2;
+  function timerfunc(dt){
+    //timer 
+    if(timer >= 0){
+      timer -= dt;
+      return false;
+    }else{
+      return true;
+    }
   }
   function update(dt) {
+    if (timerfunc(dt)){
+      reduce = true;
+    }
+    if(reduce){
+      if(portal_alpha > 0){
+        portal_alpha = Math.max(0,portal_alpha-dt*3)
+      }else{
+        reduce = false;
+        portalup = false; 
+        portalstate = false; 
+      }
+    }
+    if(portalup) return;
     if (state === 'playing') {
       world().platforms.forEach(platform => {
         if (platform.crumbleTime !== null) platform.crumbleTime = Math.max(0, platform.crumbleTime - dt);
@@ -171,10 +180,6 @@
       cameraX += (Math.max(0, Math.min(endX() - W, player.x - W * .32)) - cameraX) * Math.min(1, dt * 5);
       cameraY += (Math.max(-160, Math.min(160, player.y - H * .58)) - cameraY) * Math.min(1, dt * 5);
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
-    }
-    //timer 
-    if(timer > 0){
-      timer = timer - dt
     }
     //portal particles
     for (const p of world().portals){
@@ -210,10 +215,14 @@
       //portal collisions 
       }
       const away = Math.hypot((player.x - p.entryx),(player.y - p.entryy)) //the distance formula too smh.
-      if(away <= p.radius+1+player.r){
-        teleport();
-        player.x = p.exitx;
-        player.y = p.exity;
+      if(away <= p.radius+1+player.r && !portalstate){
+        portalstate = true 
+        portalup = true;
+        portal_alpha = 0.4; 
+        timer = 0.3; 
+        reduce = false;
+        //player.x = p.exitx;
+        //player.y = p.exity;
       }
     }
     pulse = Math.max(0, pulse - dt * 2);
@@ -289,6 +298,22 @@
     ctx.globalAlpha = 1; player.trail.forEach((t, i) => { ctx.globalAlpha = i / player.trail.length * .3; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(t.x, t.y, player.r * (i / player.trail.length), 0, TAU); ctx.fill(); }); ctx.globalAlpha = 1;
     if (drag) { const dx = drag.point.x - player.x, dy = drag.point.y - player.y, length = Math.hypot(dx, dy), pull = Math.min(length, 130); ctx.globalAlpha = .8; ctx.strokeStyle = world().accent; ctx.lineWidth = 3; ctx.setLineDash([5, 7]); ctx.beginPath(); ctx.moveTo(player.x, player.y); ctx.lineTo(player.x + dx / (length || 1) * pull, player.y + dy / (length || 1) * pull); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = .18; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(player.x, player.y, 24 + pull / 4, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; }
     ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(player.x, player.y, player.r + pulse * 8, 0, TAU); ctx.fill(); ctx.fillStyle = '#f8f5ed'; ctx.beginPath(); ctx.arc(player.x, player.y, 7, 0, TAU); ctx.fill(); ctx.restore();
+    //overlay teleport
+    if(portal_alpha >0){
+      ctx.save();
+      ctx.globalAlpha = portal_alpha; 
+      //gradient
+      const gradient = ctx.createRadialGradient(
+        viewW/2, viewH/2, 50, //inner
+        viewW/2, viewH/2, Math.max(viewW, viewH)
+      );
+      gradient.addColorStop(0,'#a82eb0')
+      gradient.addColorStop(0.1,'#65066c')
+      gradient.addColorStop(0.5,'#240226')
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0,0,viewW,viewH)
+      ctx.restore();
+    }
   }
   function loop(now) { const dt = Math.min(.033, (now - last) / 1000 || .016); last = now; update(dt); draw(); requestAnimationFrame(loop); }
   resize(); loadWorld(0); requestAnimationFrame(loop);
