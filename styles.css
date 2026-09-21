@@ -327,3 +327,7 @@ button{
 #overlayButton{
     width: 15em;
 }
+.small{
+    width: 200px !important;
+    height: 200px !important;
+}
