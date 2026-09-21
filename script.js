@@ -36,6 +36,7 @@
     secretmode = false; 
     for (const pump of world().pumpkins){
       pump.secret = false;
+      insidepumpkin = false;
     }
     Object.assign(player, { x, y, vx: 0, vy: 0, trail: [], distance: 0 });
     world().platforms.forEach(platform => { platform.crumbleTime = null; });
@@ -93,7 +94,7 @@
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
     const final = worldIndex === worlds.length - 1;
-    showOverlay(final ? 'ALL WORLDS CLEAR' : 'LEVEL CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
+    showOverlay(final ? 'ALL WORLDS CLEAR' : 'LEVEL CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}(R)`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
   }
   function togglePause() {
     if (state === 'playing') { state = 'paused'; $('pause').textContent = 'Resume'; showOverlay('PAUSED', 'Your destiny is waiting.', 'Resume'); }
@@ -110,7 +111,14 @@
   addEventListener('resize', resize);
   addEventListener('keydown', e => {
     const key = e.key.toLowerCase();
-    if (key === 'r') { if (state === 'dead') deaths++; resetPlayer(); }
+    if (key === 'r') { 
+      if(state == 'won'){
+        loadWorld((worldIndex + 1) % worlds.length);
+        return; 
+      }
+      if (state === 'dead') deaths++; 
+      resetPlayer(); 
+    }
     if (key === 'p' || key === 'escape') togglePause();
     if (state === 'playing' && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) {
       e.preventDefault(); const vectors = { arrowup: [0, -1], arrowdown: [0, 1], arrowleft: [-1, 0], arrowright: [1, 0], ' ': [0, -1] };
@@ -156,6 +164,8 @@
         reduce = true; 
         player.x = portalexit[0];
         player.y = portalexit[1];
+        player.vx = 0; 
+        player.vy = 0; 
       }
     }
     if(reduce){
@@ -254,10 +264,11 @@
           console.log("AJHHH");
           player.vx = 0; 
           player.vy = 0; 
-        }else{
-          pk.secret = false;
         }
+      }else{
+        pk.secret = false;
       }
+      
       
     }
     if(!insideportal){
