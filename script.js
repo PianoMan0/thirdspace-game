@@ -215,7 +215,7 @@
       const angle = Math.random() * TAU //radians 0-360
       const fuzzy = p.radius + ((Math.random() *6)-3)
       const opacity = Math.random()
-        if(particlesdos.length <100){
+        if(particlesdos.length <40){
           particlesdos.push({
             angle: angle,
             radius: fuzzy, 
@@ -262,17 +262,17 @@
       //a pumpkin is 110 width and 80 height
       const pv = player.x - pk.x // from the center of the pumkin how far is the player? and it gives the mag and dir
       const dist = Math.hypot((player.x - pk.x),(player.y - pk.y)) //is that...the distance formula??
-      if(dist < 55+player.r){
+      const isInside = 
+        Math.abs(pv)< (55 + player.r) && 
+        Math.abs(player.y-pk.y) < (40 + player.r)
+      if(isInside){
         if(!pk.secret){
           secretmode = !secretmode
           pk.secret = true; 
           //
-          const dir = pv <0? 1: -1; //js the direciton
+          const dir = pv < 0? 1: -1; //js the direciton
           player.x = pk.x + dir*(55+player.r+2);
-          player.y = pk.y;
-          console.log("AJHHH");
           player.vx = 0; 
-          player.vy = 0; 
         }
       }else{
         pk.secret = false;
