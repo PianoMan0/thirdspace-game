@@ -75,7 +75,13 @@
   function moveDrag(e) { if (!drag || drag.id !== e.pointerId) return; e.preventDefault(); drag.point = pointerWorld(e); }
   function releaseDrag(e) {
     if (!drag || drag.id !== e.pointerId) return;
-    e.preventDefault(); launch(player.x - drag.point.x, player.y - drag.point.y); drag = null;
+    e.preventDefault(); 
+    if(world().name == "Backwards"){
+      launch(drag.point.x - player.x, drag.point.y - player.y); 
+    }else{
+      launch(player.x - drag.point.x, player.y - drag.point.y); 
+    }
+    drag = null;
   }
   canvas.addEventListener('pointerdown', startDrag); canvas.addEventListener('pointermove', moveDrag);
   canvas.addEventListener('pointerup', releaseDrag); canvas.addEventListener('pointercancel', releaseDrag);
@@ -121,7 +127,8 @@
     }
     if (key === 'p' || key === 'escape') togglePause();
     if (state === 'playing' && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) {
-      e.preventDefault(); const vectors = { arrowup: [0, -1], arrowdown: [0, 1], arrowleft: [-1, 0], arrowright: [1, 0], ' ': [0, -1] };
+      e.preventDefault(); 
+      const vectors = world().name == "Backwards"?{ arrowup: [0, 1], arrowdown: [0, -1], arrowleft: [1, 0], arrowright: [-1, 0], ' ': [0, 1] } : { arrowup: [0, -1], arrowdown: [0, 1], arrowleft: [-1, 0], arrowright: [1, 0], ' ': [0, -1] };
       const [x, y] = vectors[key]; launch(x * 95, y * 95);
     }
   });
@@ -434,6 +441,12 @@
       ctx.font = "bold 20px sans-serif"
       ctx.fillText("or with arrow keys", 100, 400)
     }
+    if(world().name == "Backwards"){
+      ctx.fillStyle = "#e8cc93"
+      ctx.fillText("All controls are", 100, 350)
+      ctx.font = "bold 20px sans-serif"
+      ctx.fillText("Backwards now!", 100, 400)
+    }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     //
     ctx.globalAlpha = .14; 
@@ -456,7 +469,11 @@
     for (const p of particles) { ctx.globalAlpha = Math.max(0, p.life * 1.5); ctx.fillStyle = p.color; ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size); }
     ctx.globalAlpha = 1; player.trail.forEach((t, i) => { ctx.globalAlpha = i / player.trail.length * .3; ctx.fillStyle = world().accent; ctx.beginPath(); ctx.arc(t.x, t.y, player.r * (i / player.trail.length), 0, TAU); ctx.fill(); }); ctx.globalAlpha = 1;
     if (drag) { 
-      const dx = drag.point.x - player.x, dy = drag.point.y - player.y, length = Math.hypot(dx, dy), pull = Math.min(length, 130); ctx.globalAlpha = .8; 
+      const dx = world().name == "Backwards"? player.x  - drag.point.x: drag.point.x - player.x;
+      const dy = world().name == "Backwards"? player.y  - drag.point.y: drag.point.y - player.y;
+      const length = Math.hypot(dx, dy)
+      const pull = Math.min(length, 130); 
+      ctx.globalAlpha = .8; 
       ctx.strokeStyle = world().accent; ctx.lineWidth = 3; 
       ctx.setLineDash([5, 7]); 
       ctx.beginPath(); 
