@@ -60,9 +60,9 @@ const LEVELS = [
       { x: 650, y: 290, width: 150, height: 24 },
       { x: 930, y: 420, width: 120, height: 24 },
       { x: 1180, y: 340, width: 140, height: 24, crumble: true },
-      { x: 1450, y: 280, width: 130, height: 24 },
+      { x: 1450, y: 280, width: 130, height: 24,secret: true,  },
       { x: 1750, y: 400, width: 160, height: 24 },
-      { x: 2050, y: 290, width: 180, height: 24 }
+      { x: 2050, y: 290, width: 180, height: 24,secret: true,  }
     ],
     spikes: [
       { x: 690, y: 290, width: 42, height: 22, text: false },
@@ -75,7 +75,9 @@ const LEVELS = [
       { x: 1580, y: 205, width: 150, height: 8, text: false }
     ],
     portals: [],
-    pumpkins: [], 
+    pumpkins: [
+      { x: 1500, y: 250, secret: false, text:false}
+    ], 
   },
 
   {
@@ -93,7 +95,7 @@ const LEVELS = [
       { x: 1220, y: 350, width: 130, height: 24, crumble: true },
       { x: 1520, y: 240, width: 110, height: 24 },
       { x: 1820, y: 380, width: 150, height: 24 },
-      { x: 2120, y: 290, width: 140, height: 24 },
+      { x: 2120, y: 290, width: 140, height: 24,secret: true},
       { x: 2350, y: 350, width: 200, height: 24 }
     ],
     spikes: [
@@ -109,7 +111,9 @@ const LEVELS = [
     portals: [
       { x: 0, y: 470, width: 360, height: 70, text: false },
     ],
-    pumpkins: [], 
+    pumpkins: [
+      { x: 2170, y: 260, secret: false, text:false}
+    ], 
   },
 
   {
@@ -161,7 +165,7 @@ const LEVELS = [
       { x: 1310, y: 210, width: 140, height: 24 },
       { x: 1550, y: 350, width: 120, height: 24, crumble: true },
       { x: 1780, y: 260, width: 130, height: 24, crumble: true },
-      { x: 2040, y: 190, width: 270, height: 24 }
+      { x: 2040, y: 190, width: 270, height: 24,secret: true }
     ],
     spikes: [
       { x: 890, y: 430, width: 42, height: 22, text: false },
@@ -174,7 +178,7 @@ const LEVELS = [
       { x: 1915, y: 205, width: 100, height: 8, text: false }
     ],
     portals: [],
-    pumpkins: [], 
+    pumpkins: [{ x: 1120, y: 210, secret: false, text:false}], 
   },
 
   {
@@ -212,9 +216,8 @@ const LEVELS = [
     portals: [],
     pumpkins: [], 
   },
-
   {
-    name: 'The Long Way',
+    name: 'A Portal Mess',
     hint: 'HARVEST',
     sky: '#737438',
     accent: '#f7aef8',
@@ -243,10 +246,14 @@ const LEVELS = [
       { x: 1245, y: 190, width: 8, height: 120, text: false },
       { x: 1975, y: 250, width: 110, height: 8, text: false }
     ],
-    portals: [],
+    portals: [
+      { entryx: 200, entryy: 400, exitx: 1200, exity: 100, radius: 25},
+      { entryx: 1000, entryy: 200, exitx: 900, exity: 300, radius: 20},
+      { entryx: 500, entryy: 200, exitx: 1800, exity: 300, radius: 25},
+      { entryx: 2000, entryy: 200, exitx: 100, exity: 300, radius: 25},
+    ],
     pumpkins: [], 
   },
-
   {
     name: 'Backwards',
     hint: 'HARVEST',
@@ -257,7 +264,7 @@ const LEVELS = [
     platforms: [
       { x: 0, y: 470, width: 340, height: 70 },
       { x: 450, y: 420, width: 150, height: 24 },
-      { x: 700, y: 350, width: 130, height: 24 },
+      { x: 700, y: 350, width: 130, height: 24,secret: true },
       { x: 930, y: 410, width: 140, height: 24 },
       { x: 1170, y: 300, width: 130, height: 24 },
       { x: 1400, y: 380, width: 150, height: 24 },
@@ -278,6 +285,6 @@ const LEVELS = [
       { x: 2035, y: 275, width: 8, height: 120, text: false }
     ],
     portals: [],
-    pumpkins: [], 
+    pumpkins: [{ x: 740, y: 320, secret: false, text:false}], 
   }
 ];
