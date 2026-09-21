@@ -55,13 +55,13 @@ const LEVELS = [
     goal: { x: 2110, y: 150 },
     platforms: [
       { x: 0, y: 470, width: 300, height: 70 },
-      { x: 400, y: 380, width: 120, height: 24, crumble: true },
+      { x: 400, y: 380, width: 200, height: 24, crumble: true },
       { x: 650, y: 290, width: 150, height: 24 },
       { x: 930, y: 420, width: 120, height: 24},
       { x: 1180, y: 340, width: 140, height: 24, crumble: true },
       { x: 1450, y: 280, width: 130, height: 24,secret: true},
       { x: 1750, y: 400, width: 160, height: 24},
-      { x: 2050, y: 290, width: 180, height: 24,secret: true }
+      { x: 2050, y: 290, width: 180, height: 24}
     ],
     spikes: [
       { x: 690, y: 290, width: 42, height: 22, text: false },
@@ -75,7 +75,7 @@ const LEVELS = [
     ],
     portals: [],
     pumpkins: [
-      { x: 1200, y: 300, secret: false, text:false}
+      { x: 1250, y: 300, secret: false, text:false}
     ], 
   },
     {
@@ -110,7 +110,7 @@ const LEVELS = [
       { entryx: 400, entryy: 300, exitx: 600, exity: 200, radius: 25, text: false},
     ],
     pumpkins: [
-      { x: 1210, y: 300, secret: false, text:false}
+      { x: 1310, y: 300, secret: false, text:false}
     ], 
   },
   {
@@ -158,10 +158,10 @@ const LEVELS = [
       { x: 650, y: 320, width: 110, height: 24, crumble: true },
       { x: 850, y: 430, width: 150, height: 24 },
       { x: 1080, y: 300, width: 120, height: 24, crumble: true },
-      { x: 1310, y: 210, width: 140, height: 24 },
+      { x: 1310, y: 210, width: 140, height: 24,secret: true },
       { x: 1550, y: 350, width: 120, height: 24, crumble: true },
       { x: 1780, y: 260, width: 130, height: 24, crumble: true },
-      { x: 2040, y: 190, width: 270, height: 24,secret: true }
+      { x: 2040, y: 190, width: 270, height: 24 }
     ],
     spikes: [
       { x: 890, y: 430, width: 42, height: 22, text: false },

@@ -34,6 +34,8 @@
     const { x, y } = world().start;
     //pumpkin
     secretmode = false; 
+    particles = [];
+    particlesdos = [];
     for (const pump of world().pumpkins){
       pump.secret = false;
       insidepumpkin = false;
@@ -95,7 +97,7 @@
       laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!'],
     };
     const [title, text] = messages[reason] || messages.boundary;
-    showOverlay(title, text, 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+    showOverlay(title, text, 'Try again (R)', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
   } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
@@ -215,7 +217,7 @@
       const angle = Math.random() * TAU //radians 0-360
       const fuzzy = p.radius + ((Math.random() *6)-3)
       const opacity = Math.random()
-        if(particlesdos.length <40){
+        if(particlesdos.length < 30){
           particlesdos.push({
             angle: angle,
             radius: fuzzy, 
