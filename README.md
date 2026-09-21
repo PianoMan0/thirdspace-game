@@ -53,7 +53,7 @@ Bounce is a game made for Hack Club's Third Space event by Jyoshita and PianoMan
 
 #### Quick Overview
 ---
-bleh
+A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is roaming around the platformer world that is inspired by fall, pumpkins, and the harvest! You can move using Arrow Keys or by dragging. You have to avoid the obstacles and use the pumpkins/portals to reach the end! There are multiple different ways to get there. There are 8 levels overall. There is also a home page, a pause menu, and an instructions page! Have fun!
 
 ## HOW TO PLAY
 * Move using Arrow Keys or drag the player for precision.
@@ -105,7 +105,7 @@ bleh
 * **Gravity:**
 1) There is gravity in our game making the ball fall in an arc
 ---
-* **Drag and use WASD:**
+* **Drag and use Arrow Keys:**
 ---
 1) Two different ways to play making it compatible for both mobile and computer - although it is definetly easier and intended to be played with arrow keys!
 ---

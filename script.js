@@ -217,7 +217,7 @@
       const angle = Math.random() * TAU //radians 0-360
       const fuzzy = p.radius + ((Math.random() *6)-3)
       const opacity = Math.random()
-        if(particlesdos.length < 30){
+        if(particlesdos.length < 12){
           particlesdos.push({
             angle: angle,
             radius: fuzzy, 
