@@ -40,7 +40,7 @@ const LEVELS = [
       { x: 1690, y: 315, width: 110, height: 8, text: false }
     ],
     portals: [
-      { entryx: 1200, entryy: 350, exitx: 1400, exity: 200, radius: 25, text: true},
+      { entryx: 1500, entryy: 300, exitx: 1800, exity: 200, radius: 25, text: true},
     ],
     pumpkins: [
       {x: 1150, y: 400, secret: false, text: true},

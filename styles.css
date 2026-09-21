@@ -163,9 +163,24 @@ button:active {
 }
 
 .panel {
-    max-width: 440px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column; 
+    max-width: 500px; 
+    height: 400px; 
     text-align: center; 
     pointer-events: auto; 
+    z-index: 100;
+}
+.bg{
+    opacity: 0.2;
+    position: fixed;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    -webkit-mask-image: radial-gradient( #737438 30%,transparent);
+    mask-image: radial-gradient(#737438 30%, transparent);
 }
 
 .panel h1 { 
@@ -174,13 +189,18 @@ button:active {
     font-size: clamp(32px,8vw,64px); 
     line-height: .95; 
     letter-spacing: -.04em; 
+    text-shadow: 
+        0 0 26px #111 /*offset, radius, color*/
 }
 
 .panel p { 
     margin: 0 0 12px;
-    color: var(--muted);
+    color: var(--ink);
+    font-weight: bold;
     font-size: 14px;
     line-height: 1.5; 
+    text-shadow: 
+        0 0 6px #1d1c1c; /*offset, radius, color*/
 }
     
 .overlay-stats { 
@@ -303,4 +323,7 @@ button{
     justify-content: left; 
     gap: 5em;
     padding: 1em;
+}
+#overlayButton{
+    width: 15em;
 }

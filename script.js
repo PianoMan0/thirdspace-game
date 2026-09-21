@@ -32,9 +32,14 @@
   }
   function resetPlayer() {
     const { x, y } = world().start;
+    //pumpkin
+    secretmode = false; 
+    for (const pump of world().pumpkins){
+      pump.secret = false;
+    }
     Object.assign(player, { x, y, vx: 0, vy: 0, trail: [], distance: 0 });
     world().platforms.forEach(platform => { platform.crumbleTime = null; });
-    drag = null; cameraX = 0; cameraY = 0; state = 'playing'; $('pause').textContent = 'Pause';
+    drag = null; cameraX = 0; cameraY = 0; state = 'playing'; $('pause').textContent = 'Pause (P)';
     hideOverlay(); updateUi();
   }
   function loadWorld(index) { worldIndex = index; resetPlayer(); }
@@ -83,7 +88,7 @@
       laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!'],
     };
     const [title, text] = messages[reason] || messages.boundary;
-    showOverlay(title, text, 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+    showOverlay(title, text, 'Try again (R)', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
   } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
@@ -226,7 +231,7 @@
           portalstate = true 
           portalup = true;
           portal_alpha = 0.4; 
-          timer = 2.0; 
+          timer = 0.8; 
           reduce = false;
           //
           portalexit = [p.exitx,p.exity]
@@ -411,6 +416,12 @@
           ctx.font = "bold 20px sans-serif"
           ctx.fillText("burn you", laser.x+95, laser.y-30)
       }
+    }
+    if(world().name == "The Basics"){
+      ctx.fillStyle = "#e8cc93"
+      ctx.fillText("Move by dragging", 100, 350)
+      ctx.font = "bold 20px sans-serif"
+      ctx.fillText("or with arrow keys", 100, 400)
     }
     const g = world().goal, glow = 28 + Math.sin(performance.now() / 260) * 4;
     //
