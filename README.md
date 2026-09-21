@@ -151,15 +151,31 @@ A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is r
 
 1) Menu
 ---
+<img width="10000" height="700" alt="Illustration 20260919" src="https://github.com/user-attachments/assets/06b8babb-cbe0-40d5-8016-0ffff38eab70" />
+<img width="1815" height="991" alt="mainbounce" src="https://github.com/user-attachments/assets/0ed84a94-38a0-4da0-8500-c795eafc9b79" />
+
 
 2) Pause
 ---
+<img width="1830" height="1010" alt="pause" src="https://github.com/user-attachments/assets/675d8936-c2b7-48cc-b8b6-458821f172b9" />
+
 
 3) Levels
 ---
+<img width="1822" height="1007" alt="level8" src="https://github.com/user-attachments/assets/7d660ef5-b3c0-4893-bb10-3c49cac794fe" />
+<img width="1832" height="1007" alt="level7" src="https://github.com/user-attachments/assets/bec24604-0049-4df7-933f-63d8614b7c1c" />
+<img width="1837" height="1002" alt="level6" src="https://github.com/user-attachments/assets/5c580458-f3c1-400b-ab5d-12fc10104c95" />
+<img width="1831" height="1011" alt="level5" src="https://github.com/user-attachments/assets/f6c93318-8ac4-4036-b699-ec917abf5e96" />
+<img width="1827" height="1005" alt="level3" src="https://github.com/user-attachments/assets/d4447159-a6e6-4138-9a31-861050456d07" />
+<img width="1827" height="1002" alt="level4" src="https://github.com/user-attachments/assets/9812b1c8-7e78-4261-bbda-163e42279fe6" />
+<img width="1835" height="1010" alt="level2" src="https://github.com/user-attachments/assets/610ac41c-62b5-4625-be90-262b137e830e" />
+<img width="1835" height="1012" alt="level1" src="https://github.com/user-attachments/assets/3a9f5ea4-18b2-4b99-9262-bc1aa4368c0b" />
+
 
 4) Instructions
 ---
+<img width="1842" height="1020" alt="instructions" src="https://github.com/user-attachments/assets/2c550126-db22-44aa-8a52-bdeafe50b8ac" />
+
 
 
 *Made with 💖 by jyoshita and pianoman0!*
