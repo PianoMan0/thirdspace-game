@@ -95,12 +95,12 @@
       laser: ['STRUCK BY A LASER', 'Not the dreaded laser of beam!'],
     };
     const [title, text] = messages[reason] || messages.boundary;
-    showOverlay(title, text, 'Try again (R)', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
+    showOverlay(title, text, 'Try again', `BEST DISTANCE  ${Math.round(player.best / 10)}m`);
   } 
   function win() {
     state = 'won'; burst(world().goal.x, world().goal.y, world().accent, 44);
     const final = worldIndex === worlds.length - 1;
-    showOverlay(final ? 'ALL WORLDS CLEAR' : 'LEVEL CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2}(R)`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
+    showOverlay(final ? 'ALL WORLDS CLEAR' : 'LEVEL CLEAR', final ? 'You have conquered the game!' : `${world().name} complete.`, final ? 'Play again' : `World ${worldIndex + 2} (R)`, `DISTANCE  ${Math.round(player.distance / 10)}`, !final);
   }
   function togglePause() {
     if (state === 'playing') { state = 'paused'; $('pause').textContent = 'Resume'; showOverlay('PAUSED', 'Your destiny is waiting.', 'Resume'); }

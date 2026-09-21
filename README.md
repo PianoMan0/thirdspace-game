@@ -10,7 +10,7 @@ Bounce is a game made for Hack Club's Third Space event by Jyoshita and PianoMan
 * [Description](#description)
 
 
-* [How to use?](#how-to-use)
+* [How to play?](#how-to-play)
 
 
 * [Features](#features)
@@ -20,6 +20,9 @@ Bounce is a game made for Hack Club's Third Space event by Jyoshita and PianoMan
 
 
 * [Learning](#learning)
+
+
+* [Screenshots](#screenshots)
 
 
 
@@ -42,7 +45,7 @@ Bounce is a game made for Hack Club's Third Space event by Jyoshita and PianoMan
 * project name: **Bounce** 
 
 
-* made with: **Html+Css+JavaScript** in VS Code
+* made with: **Html + Css + JavaScript** in VS Code
 
 
 * deployed to *Github Pages*
@@ -64,97 +67,99 @@ bleh
 
 ## FEATURES
 ---
+* **Level Setup**
+1) A seperate easy to read level file to create new levels quickly! It makes our game a lot more readable and easier to impliment new levels later!
+---
 * **Pause Menu**
-1) Pause by clicking P
+1) Toggle the pause by clicking P, there is also a pause menu that save everything about when you last were playing!
 ---
 * **Cool Intro**
 1) When you start the game it zooms past a harvest bg before dropping you in the world.
 
 ---
 * **Restart and Move to the Next level using R**
-1) This way you don't need to keep clicking the button - and makes it easy to quickly play a bunch of game!
+1) Click R can you can: restart the game at any time, restart after loosing, move on to the next level after wininng.
 
 ---
-* **Toaster:**	
-1) A intresting library that allows for popups to be created MUCH easier than manually styling alerts with CSS
-2) I used it for all my alerts and it looks very professional! with minimal code written!
+* **Switching directions for the last level**	
+1) Switches the normal vectors when the world name is Backwards - so everything is flipped
 
 ---
-* **Shelf:**	
-1) A cute shelf that stores all your gacha!
-2) The shelf has a fixed height and using slice() the gacha that it should display is dynamically calculated
-3) You can also see the gacha id (unique to every unique gacha) and rarity on the shelf (ooh!)
+* **Spikes / Lazers**	
+1) Spikes are triangles, lazers are two cool rectangles in one another that flicker!
+2) When you land on both there is a burst to show you died and a custom death message!
 
 ---
-* **Cool font:**
-1) A cool font I made on calligraphr
-2) Has 52 characters that I drew
+* **Portal:**
+1) There are randomly generated cicles outside of the main circle to make it look like it's flickering and it's fuzzy. It teleports you to somewhere new.
 
 ---
-* **Dashboard:**
-1) displays your email and uuid (unique to each user)
-2) you can also gamble, head to flashcards, or logout here
+* **Pumpkin:**
+1) They are like a toggle switch to show you new hidden paths.
+2) It also pushes you out of the pumpkin, making it seem more like a switch!
 
 ---
-* **Flashcards:**
-1) Here you can create new flashcards with a title and description. 
-2) or you can view your library of flashcards! something cool i did here was adding the '...' when the text is full! >.<
-3) once you click on the button you can practice your flashcards in two modes: learn and test. 
-5) test means you gain a coin for a right answer and lose one for a wrong answer!
-4) learn is no risk and you can just skim through the flashcards
-5) there is a ending page when you finish in test mode that shows you your stats and also 3 different patch images based on how well you did!
-6) when you exit test mode it resets your coins and all assosiated states :D
-7) the library is the same grid as the shelf...shh...don't let anyone know
-
+* **Trail:**
+1) A cool trail behind the player! It shows the arc of where they have been!
+---
+* **Gravity:**
+1) There is gravity in our game making the ball fall in an arc
+---
+* **Drag and use WASD:**
+---
+1) Two different ways to play making it compatible for both mobile and computer - although it is definetly easier and intended to be played with arrow keys!
 ---
 * **Additional Stuff:**
-1) yeah. my project as a super cute cat icon when you click on the link
-2) and a title!
-
+1) cool art :D
+2) in the future songs might be added too!
 
 ---
 
 ## AI USAGE: 
-* Gemini for debugging and learning!
-* I learned about useState, useEffect, upsert, and more from AI!
-* But in the end all code and core concepts are written authentically by me!
-* All the art is done by me (<3 i hope you likee itt)
-* And of course this read me is written by the one and only me :P
+* Gemini for debugging and learning new stuff!
+* For example, jyoshita learned a lot about drawing stuff (ctx stuff) from gemini! (especially the pumpkin it was so hard to draw! and the cat ears on the player!)
+* Gemini was also used as a debugging tool when jyoshita would get stuck :D
+* javascript was also a new language to me so jyoshita used ai to help her understand how to start smth. Some things she learned include: ctx, hypot, window.location.href, promises,pushing, event listeners, and adding classes!
+* But in the end all code and core concepts are written authentically by us!
+* All the art is done by jyoshita (<3)
+* And the read me is written by jyoshita!
 
 ## LEARNING:
 
 
-### Learned:
+### Learned (Jyoshita):
 ---
-1) This was my first every react project and website
-2) I knew a bit of html/css before this but not much js. now i definetly know a lot more and feel comfortable with it too!
-3) I learned how to use supabase, toaster, html2canvas (to take screenshots of the gacha) and much more!
-4) I learned about new js tools like useState and useEffect!
-5) I learned how to set up a vercel site
-6) I got more familiar with flex (my greatest opp...) and css
-7) I learned about tables and grids (actually never used them before)
-8) I learned about new tags like description and summary ! super cool!
-9) I learned about position event in css :D
-10) I learned how to add style into the jsx code :3
-11) I learned how to user framer motion! Will totally be using this again 
+1) I learned a lot about how to code in javascript and making javascript games! This was really cool i'd really only ever made godot games before!
+2) I learned a lot of javascript syntax that I wasn't familiar with!(for example: ctx, hypot, window.location.href, promises, event listeners, pushing, and adding classes!) and especially drawing stuff in javascript!
+3) I also learned about new things in css (like inset!)
+4) This was also my first web game!
 
 ... and more! but that's off the top of my head
 
-### Struggles :
+### Struggles (Jyoshita) :
 	
 ---
-1) **The gambling page.** As you'd expect this took up a bulk of the time. It was so hard to have everything stack ontop of each other and I was so confused how I'd store the state when the user spam clicked. That's why there are two div containers for the image - one the use sees and one that is only used to take a split second screenshot using html2 canvas that is then stored in the db. A lot of this was a logic race and a PAIN to debug. I also learned a lot about the Object class and mapping stuff and using glob for the image path (also a pain because I kept messing up the path T-T)
-2) **The table.** Uh formatting the css was terrible for this. I'm sure there's a better way out there but I just kept guessing things and hoping the shelf would end up the way I wanted. I was also learning how to use a grid so I found it kind of confusing.
-In the end though it turned out amazing and I'm glad I took the time to make it look like a shelf instead of leaving it a plain table.
-scaled down/up nodes everywhere this was a guess and check process! 
-3) **The captchas..** For some reason they wouldn't reset when the fields were wrong. So there are actually two captchas on every page so that they get recreacted when there is an error and the field is set to null again. This seems simple but it actually took me forever and crazy logic to get to.
-of the nodes and dynamically connect multiple files (mainly fish,shark,and start) to return to how it was at the start
-4) **the formula...**  Sure it seems simple enough to randomly generate images right. WRONG. tell me why there was so much probability math involved? At some point I just guessed formulas until one seemed to work and I had to be reminded of permutations again. This made me sad. I also made the rarity to get a 5 realllly hard like less than one percent. So if you get a 5 you are reallllyyy lucky. 
-4) **the css...** shiver. i hate css. i spent so long trying to just align everything and had to scrap classes countless times leading to other stuff getting affected and i had to reformat EVERYTHING T-T . especially for the flashcard section this got me
-
-**bonus!: the website is called fortune kitties because fortune cat was taken...so sad T-T**
+1) **The portal** It was taking up a lot of space with the particles for each portal and making the game laggy so I had to find a way around that (limiting total partilcles). Figuring out a way to randomly generate particles was also kinda hard, and blurring them. There was even polar coordinates involved! It took me way too long to get it to woork!
+2) **The pumpkin.** It kept glitching because I didn't make the pumpkin a solid object but rather more like a switch. When the player got pushed out sometimes the platform would js dissapear and never come back again T_T or it would get stuck in it like quicksand kind of. It took a while to get it to work as a switch - and honestly it's still not quiet perfect! I would love to fix it up in the future!
+3) **Working Together** Working together on a project was pretty hard since unlike at hackathons we couldn't be talking to each other the whole time! We had to create a system were we would be working on different parts of the game - but at the same time in order to bring everything together in the end we needed to have an understanding of one anothers code. So whenever I needed to edit something from piano's code it was kinda hard to find it, but at the same time having someone to working with was also SUPER FUN :D and it motivated me more too! It also made it easier to focus on doing the things we were good at!
+4) **the page moving**  I was just very new to javascript and this was the first thing I made so maybe a bit biased. I was pretty confuesd how to set up the promise, find the object, have it scroll through, ect and it took a while. Overall though this is my favorite thing that I coded though! It looks really cool!
 
 *...and more but those are the big ones*
+
+## SCREENSHOTS:
+---
+
+1) Menu
+---
+
+2) Pause
+---
+
+3) Levels
+---
+
+4) Instructions
+---
 
 
 *Made with 💖 by jyoshita and pianoman0!*
