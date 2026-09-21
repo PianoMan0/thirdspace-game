@@ -215,15 +215,17 @@
       const angle = Math.random() * TAU //radians 0-360
       const fuzzy = p.radius + ((Math.random() *6)-3)
       const opacity = Math.random()
-        particlesdos.push({
-          angle: angle,
-          radius: fuzzy, 
-          opacity: opacity,
-          centerx: p.entryx, 
-          centery: p.entryy,
-          lifespan: Math.random() *2,
-          particleradius: Math.random() *7
-        });
+        if(particlesdos.length <100){
+          particlesdos.push({
+            angle: angle,
+            radius: fuzzy, 
+            opacity: opacity,
+            centerx: p.entryx, 
+            centery: p.entryy,
+            lifespan: Math.random() *2,
+            particleradius: Math.random() *7
+          });
+        }
       //rare particles
       if(Math.random() > 0.9){
         //random position on perim
