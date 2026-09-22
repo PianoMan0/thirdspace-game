@@ -5,7 +5,7 @@
   const W = 960, H = 540, CEILING_Y = -80, TAU = Math.PI * 2;
   const worlds = LEVELS;
   let dpr = 1, viewW = 1, viewH = 1, worldIndex = 0, deaths = 0, state = 'playing';
-  let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], pulse = 0;
+  let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], pulse = 0, uiTimer = 0;
   const player = { x: 0, y: 0, r: 18, vx: 0, vy: 0, trail: [], distance: 0, best: 0 };
   const $ = id => document.getElementById(id);
   const world = () => worlds[worldIndex];
@@ -53,7 +53,8 @@
     $('overlay').classList.remove('hidden'); $('next').classList.toggle('hidden', !next);
   }
   function burst(x, y, color, count = 14) {
-    for (let i = 0; i < count; i++) {
+    const available = Math.max(0, 180 - particles.length);
+    for (let i = 0; i < Math.min(count, available); i++) {
       const angle = Math.random() * TAU, speed = 30 + Math.random() * 150;
       particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: .35 + Math.random() * .55, size: 1 + Math.random() * 3, color });
     }
@@ -186,7 +187,6 @@
       }
     }
     if(portalup){
-      burst(player.x, player.y, "#a70ac7");
       return;
     }
 
@@ -196,7 +196,9 @@
         if (platform.crumbleTime !== null) platform.crumbleTime = Math.max(0, platform.crumbleTime - dt);
       });
       player.vy += 1050 * dt; player.vx *= Math.pow(.994, dt * 60); movePlayer(dt);
-      player.distance = Math.max(player.distance, player.x - world().start.x); player.best = Math.max(player.best, player.distance); updateUi();
+      player.distance = Math.max(player.distance, player.x - world().start.x); player.best = Math.max(player.best, player.distance);
+      uiTimer -= dt;
+      if (uiTimer <= 0) { uiTimer = .1; updateUi(); }
       const goal = world().goal;
       if (Math.hypot(player.x - goal.x, player.y - goal.y) < 46) { win(); return; }
       for (const spike of world().spikes) {
@@ -229,7 +231,7 @@
           });
         }
       //rare particles
-      if(Math.random() > 0.9){
+      if(Math.random() > 0.9 && particlesdos.length < 24){
         //random position on perim
         const angle = Math.random() * TAU //radians 0-360
         const fuzzy = p.radius + ((Math.random() *60)-3)
@@ -251,6 +253,7 @@
         if(!portalstate){
           portalstate = true 
           portalup = true;
+          burst(player.x, player.y, "#a70ac7", 24);
           portal_alpha = 0.4; 
           timer = 0.8; 
           reduce = false;
@@ -302,11 +305,11 @@
     //sorry lol this looks out of place im a crazy commenter if u want we can delete at the end tho
     //portal particles 
     ctx.save();
+    ctx.filter = 'blur(5px)';
     for (const pt of particlesdos){
       const rectangularX = pt.centerx +(pt.radius * Math.cos(pt.angle)) //never in my life did i ever think id use this equation T-T
       const rectangularY = pt.centery +(pt.radius * Math.sin(pt.angle))
       ctx.globalAlpha = pt.opacity;
-      ctx.filter = 'blur(5px)'
       ctx.strokeStyle = '#240221';
       ctx.fillStyle = '#5f195a';
       ctx.lineWidth = 4; 
