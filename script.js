@@ -1,11 +1,10 @@
 (() => {
   const canvas = document.getElementById('game');
-  let particlesdos = [];
   const ctx = canvas.getContext('2d'); //context
   const W = 960, H = 540, CEILING_Y = -80, TAU = Math.PI * 2;
-  const worlds = LEVELS;
+  const worlds = new URLSearchParams(location.search).has('daily') ? [createDailyLevel()] : LEVELS;
   let dpr = 1, viewW = 1, viewH = 1, worldIndex = 0, deaths = 0, state = 'playing';
-  let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], pulse = 0, uiTimer = 0;
+  let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], portalParticles = [], pulse = 0, uiTimer = 0;
   const player = { x: 0, y: 0, r: 18, vx: 0, vy: 0, trail: [], distance: 0, best: 0 };
   const $ = id => document.getElementById(id);
   const world = () => worlds[worldIndex];
@@ -35,7 +34,19 @@
     //pumpkin
     secretmode = false; 
     particles = [];
-    particlesdos = [];
+    portalParticles = [];
+    for (const portal of world().portals) {
+      for (let i = 0; i < 8; i++) {
+        portalParticles.push({
+          portal,
+          angle: (i / 8) * TAU,
+          radius: portal.radius + (i % 3 - 1) * 3,
+          speed: 0.45 + (i % 4) * 0.12,
+          size: 2 + i % 3,
+          alpha: 0.35 + (i % 4) * 0.12
+        });
+      }
+    }
     for (const pump of world().pumpkins){
       pump.secret = false;
       insidepumpkin = false;
@@ -186,12 +197,8 @@
         portalup = false; 
       }
     }
-    if(portalup){
-      return;
-    }
-
     //normal stuff
-    if (state === 'playing') {
+    if (state === 'playing' && !portalup) {
       world().platforms.forEach(platform => {
         if (platform.crumbleTime !== null) platform.crumbleTime = Math.max(0, platform.crumbleTime - dt);
       });
@@ -213,40 +220,10 @@
       player.trail.push({ x: player.x, y: player.y }); if (player.trail.length > 18) player.trail.shift();
     }
     let insideportal = false
-    //portal particles
+    for (const particle of portalParticles) {
+      particle.angle += particle.speed * dt;
+    }
     for (const p of world().portals){
-      //common particles
-      const angle = Math.random() * TAU //radians 0-360
-      const fuzzy = p.radius + ((Math.random() *6)-3)
-      const opacity = Math.random()
-        if(particlesdos.length < 12){
-          particlesdos.push({
-            angle: angle,
-            radius: fuzzy, 
-            opacity: opacity,
-            centerx: p.entryx, 
-            centery: p.entryy,
-            lifespan: Math.random() *2,
-            particleradius: Math.random() *7
-          });
-        }
-      //rare particles
-      if(Math.random() > 0.9 && particlesdos.length < 24){
-        //random position on perim
-        const angle = Math.random() * TAU //radians 0-360
-        const fuzzy = p.radius + ((Math.random() *60)-3)
-        const opacity = Math.random()
-        particlesdos.push({
-          angle: angle,
-          radius: fuzzy, 
-          opacity: opacity,
-          centerx: p.entryx, 
-          centery: p.entryy,
-          lifespan: Math.random() *2,
-          particleradius: Math.random() *7
-        });
-      //portal collisions 
-      }
       const away = Math.hypot((player.x - p.entryx),(player.y - p.entryy)) //the distance formula too smh.
       if(away <= p.radius+1+player.r){
         insideportal = true; 
@@ -290,7 +267,6 @@
     }
     pulse = Math.max(0, pulse - dt * 2);
     particles = particles.filter(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 220 * dt; p.life -= dt; return p.life > 0; });
-    particlesdos = particlesdos.filter(p => {p.lifespan -= dt; return p.lifespan > 0; });
   }
 
   function draw() {
@@ -303,31 +279,28 @@
     for (let i = 0; i < 90; i++) { const x = (i * 173) % (endX() + W), y = (i * 97) % H; ctx.globalAlpha = .15 + (i % 4) * .04; ctx.fillRect(x, y, 1 + i % 2, 1 + i % 2); }
     ctx.globalAlpha = 1;
     //sorry lol this looks out of place im a crazy commenter if u want we can delete at the end tho
-    //portal particles 
+    //portal particles
     ctx.save();
-    ctx.filter = 'blur(5px)';
-    for (const pt of particlesdos){
-      const rectangularX = pt.centerx +(pt.radius * Math.cos(pt.angle)) //never in my life did i ever think id use this equation T-T
-      const rectangularY = pt.centery +(pt.radius * Math.sin(pt.angle))
-      ctx.globalAlpha = pt.opacity;
-      ctx.strokeStyle = '#240221';
-      ctx.fillStyle = '#5f195a';
-      ctx.lineWidth = 4; 
+    ctx.filter = 'none';
+    for (const pt of portalParticles){
+      const particleX = pt.portal.entryx + pt.radius * Math.cos(pt.angle);
+      const particleY = pt.portal.entryy + pt.radius * Math.sin(pt.angle);
+      ctx.globalAlpha = pt.alpha;
+      ctx.fillStyle = '#b948b0';
       ctx.beginPath();
-      ctx.arc(rectangularX, rectangularY, pt.particleradius,0, TAU);
-      ctx.stroke();
+      ctx.arc(particleX, particleY, pt.size, 0, TAU);
       ctx.fill();
     }
-    //portals 
+    //portals
       for (const p of world().portals){
-        const pulseradiusportal = p.radius;
-        ctx.filter = 'blur(6px)'
-        ctx.strokeStyle = '#240221';
-        ctx.fillStyle = '#5f195a';
-        ctx.lineWidth = 10; 
+        const portalPulse = Math.sin(performance.now() / 260) * 2;
+        ctx.filter = 'none';
+        ctx.strokeStyle = '#b948b0';
+        ctx.fillStyle = 'rgba(95,25,90,.8)';
+        ctx.lineWidth = 5;
         ctx.globalAlpha = 0.6;
         ctx.beginPath(); //new drawing
-        ctx.arc(p.entryx, p.entryy, p.radius,0, TAU);
+        ctx.arc(p.entryx, p.entryy, p.radius + portalPulse,0, TAU);
         ctx.stroke();
         ctx.fill();
         if(p.text){

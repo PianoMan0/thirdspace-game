@@ -281,3 +281,73 @@ const LEVELS = [
     pumpkins: [{ x: 1000, y: 380, secret: false, text:false}], 
   },
 ];
+
+function createDailyLevel(date = new Date()) {
+  const dateKey = date.toISOString().slice(0, 10);
+  let seed = 2166136261;
+  for (let i = 0; i < dateKey.length; i++) {
+    seed ^= dateKey.charCodeAt(i);
+    seed = Math.imul(seed, 16777619);
+  }
+  const random = () => {
+    seed += 0x6D2B79F5;
+    let value = seed;
+    value = Math.imul(value ^ value >>> 15, value | 1);
+    value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+    return ((value ^ value >>> 14) >>> 0) / 4294967296;
+  };
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+  const platforms = [{ x: 0, y: 470, width: 380, height: 70 }];
+  const spikes = [];
+  const lasers = [];
+  const portals = [];
+  let x = 520;
+  let y = 390;
+
+  for (let i = 0; i < 9; i++) {
+    x += 110 + random() * 80;
+    y = clamp(y + (random() - 0.5) * 150, 235, 425);
+    const platform = {
+      x: Math.round(x),
+      y: Math.round(y),
+      width: Math.round(150 + random() * 95),
+      height: 24
+    };
+    if (i === 2 || i === 6) platform.crumble = true;
+    platforms.push(platform);
+
+    if (i > 0 && random() > 0.35) {
+      spikes.push({ x: platform.x + Math.round(platform.width * (0.35 + random() * 0.35)), y: platform.y, width: 40, height: 22, text: false });
+    }
+    if (i > 1 && random() > 0.45) {
+      lasers.push({ x: platform.x - 75, y: Math.max(125, platform.y - 75), width: 85, height: 8, text: false });
+    }
+    if (i === 3 || i === 7) {
+      const nextPlatform = platforms[platforms.length - 2];
+      portals.push({
+        entryx: platform.x + platform.width * 0.25,
+        entryy: platform.y - 48,
+        exitx: nextPlatform.x + nextPlatform.width * 0.75,
+        exity: nextPlatform.y - 48,
+        radius: 24,
+        text: false
+      });
+    }
+    x += platform.width;
+  }
+
+  const finalPlatform = platforms[platforms.length - 1];
+  return {
+    name: `Daily ${dateKey}`,
+    hint: 'DAILY CHALLENGE',
+    sky: '#4b5961',
+    accent: ['#ff7654', '#ffd166', '#7ed6a5', '#f7aef8'][Math.floor(random() * 4)],
+    start: { x: 80, y: 390 },
+    goal: { x: finalPlatform.x + finalPlatform.width - 55, y: finalPlatform.y - 70 },
+    platforms,
+    spikes,
+    lasers,
+    portals,
+    pumpkins: []
+  };
+}

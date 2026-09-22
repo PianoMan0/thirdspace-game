@@ -9,6 +9,10 @@ document.getElementById("rat").addEventListener('click', async function() {
   console.log("change");
   window.location.href = 'meow.html';
 });
+document.getElementById("daily").addEventListener('click', async function() {
+  await playStartAnimation();
+  window.location.href = 'meow.html?daily=1';
+});
 //story 
 document.getElementById("fat").addEventListener('click', () => {
   window.location.href = 'story.html'
