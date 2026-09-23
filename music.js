@@ -4,6 +4,7 @@
     'audio/Blast off song %232.m4a',
     'audio/Blast off song %233.m4a',
     'audio/Blast off song %234.m4a',
+    'audio/ANOMALY.mp3',
     'audio/World 1 Theme.m4a'
   ];
 
