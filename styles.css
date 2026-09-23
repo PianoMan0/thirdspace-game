@@ -111,6 +111,42 @@ body {
     transition: width .15s ease; 
 }
 
+.music-button {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 9px;
+    pointer-events: auto;
+    color: var(--muted);
+    background: rgba(15,20,24,.72);
+    text-transform: uppercase;
+}
+
+.music-button-light {
+    width: 8px;
+    height: 8px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.music-button.is-playing {
+    color: var(--accent);
+}
+
+.music-button.is-playing .music-button-light {
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.music-button-label {
+    font-size: 10px;
+    letter-spacing: .1em;
+}
+
 .help { 
     position: absolute; 
     left: 22px; 
@@ -221,6 +257,7 @@ button:active {
 
 @media (max-width: 600px) { 
     .hud { padding: 14px 15px; } 
+    .music-button { top: 14px; right: 15px; }
     .stats { gap: 10px; }
     .stats strong { font-size: 16px; }
     .help { left: 15px; bottom: 66px; max-width: 210px; line-height: 1.4; } 

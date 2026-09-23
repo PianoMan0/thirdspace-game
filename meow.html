@@ -7,11 +7,16 @@
   <title>Bounce</title>
   <script src="levels.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="music.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <canvas id="game" aria-label="Third Space platformer"></canvas>
   <div class="hud">
+    <button id="musicButton" class="music-button" type="button" aria-label="Play music" title="Play music">
+      <span class="music-button-light" aria-hidden="true"></span>
+      <span class="music-button-label">Radio</span>
+    </button>
     <div class="topline">
       <div>
         <div class="brand"><span class="brand-mark">+</span> Bounce</div>
