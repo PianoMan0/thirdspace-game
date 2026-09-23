@@ -272,8 +272,7 @@
   function draw() {
     const scale = Math.min(viewW / W, viewH / H), ox = (viewW - W * scale) / 2, oy = (viewH - H * scale) / 2;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const background = ctx.createLinearGradient(0, 0, viewW, viewH); background.addColorStop(0, world().sky); background.addColorStop(1, '#080d12');
-    ctx.fillStyle = background; ctx.fillRect(0, 0, viewW, viewH);
+    ctx.fillStyle = world().sky; ctx.fillRect(0, 0, viewW, viewH);
     ctx.setTransform(dpr * scale, 0, 0, dpr * scale, dpr * ox, dpr * oy); ctx.fillStyle = world().sky; ctx.fillRect(0, 0, W, H); ctx.save(); ctx.translate(-cameraX, -cameraY);
     ctx.fillStyle = 'rgba(255,255,255,.08)';
     for (let i = 0; i < 90; i++) { const x = (i * 173) % (endX() + W), y = (i * 97) % H; ctx.globalAlpha = .15 + (i % 4) * .04; ctx.fillRect(x, y, 1 + i % 2, 1 + i % 2); }

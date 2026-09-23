@@ -127,29 +127,23 @@ body {
     border-radius: 50%;
 }
 
-.music-button-light {
+.music-button-icon {
     position: relative;
-    width: 13px;
-    height: 13px;
+    width: 17px;
+    height: 17px;
     display: block;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-    background: transparent;
-}
-
-.music-button-light::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border-radius: 50%;
-    background: currentColor;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
 }
 
 .music-button.is-playing {
     color: var(--accent);
 }
 
-.music-button.is-playing .music-button-light {
+.music-button.is-playing .music-button-icon {
     box-shadow: 0 0 8px currentColor;
 }
 
