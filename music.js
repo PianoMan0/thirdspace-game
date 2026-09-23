@@ -1,9 +1,9 @@
 (() => {
   const SONGS = [
-    'audio/Blast off song %1.m4a',
-    'audio/Blast off song %2.m4a',
-    'audio/Blast off song %3.m4a',
-    'audio/Blast off song %4.m4a',
+    'audio/Blast off song #1.m4a',
+    'audio/Blast off song #2.m4a',
+    'audio/Blast off song #3.m4a',
+    'audio/Blast off song #4.m4a',
     'audio/World 1 Theme.m4a'
   ];
 
