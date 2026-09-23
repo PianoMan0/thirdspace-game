@@ -1,9 +1,9 @@
 (() => {
   const SONGS = [
-    'audio/Blast off song %1.m4a',
-    'audio/Blast off song %2.m4a',
-    'audio/Blast off song %3.m4a',
-    'audio/Blast off song %4.m4a',
+    'audio/Blast off song %231.m4a',
+    'audio/Blast off song %232.m4a',
+    'audio/Blast off song %233.m4a',
+    'audio/Blast off song %234.m4a',
     'audio/World 1 Theme.m4a'
   ];
 
@@ -14,6 +14,7 @@
   audio.preload = 'auto';
   audio.loop = true;
   let songIndex = -1;
+  let isLoading = false;
 
   function updateButton() {
     const isPlaying = !audio.paused;
@@ -22,11 +23,52 @@
     button.title = isPlaying ? 'Play next song' : 'Play music';
   }
 
-  function playSong(index) {
-    songIndex = (index + SONGS.length) % SONGS.length;
-    audio.src = SONGS[songIndex];
-    audio.currentTime = 0;
-    audio.play().then(updateButton).catch(updateButton);
+  function waitForPlayableSource() {
+    return new Promise((resolve, reject) => {
+      if (audio.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        resolve();
+        return;
+      }
+
+      const finish = (error) => {
+        audio.removeEventListener('canplay', onCanPlay);
+        audio.removeEventListener('error', onError);
+        error ? reject(error) : resolve();
+      };
+      const onCanPlay = () => finish();
+      const onError = () => finish(audio.error || new Error('Audio could not be loaded'));
+      audio.addEventListener('canplay', onCanPlay, { once: true });
+      audio.addEventListener('error', onError, { once: true });
+      audio.load();
+    });
+  }
+
+  async function playSong(index) {
+    if (isLoading) return;
+    isLoading = true;
+
+    for (let attempt = 0; attempt < SONGS.length; attempt++) {
+      const candidateIndex = (index + attempt + SONGS.length) % SONGS.length;
+      audio.src = SONGS[candidateIndex];
+      audio.currentTime = 0;
+
+      try {
+        await waitForPlayableSource();
+        await audio.play();
+        songIndex = candidateIndex;
+        updateButton();
+        isLoading = false;
+        return;
+      } catch {
+      }
+    }
+
+    isLoading = false;
+    audio.removeAttribute('src');
+    audio.load();
+    updateButton();
+    button.setAttribute('aria-label', 'No playable music found');
+    button.title = 'No playable music found';
   }
 
   button.addEventListener('click', () => {
