@@ -136,6 +136,13 @@ A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is r
 
 ... and more! but that's off the top of my head
 
+### Learned (PianoMan0):
+---
+1) I learned so much about making gravity in games!
+2) I learned how to make music that works well in video games
+3) I learned that most modern browsers block autoplay - that's why there's a button to play music!
+4) I learned a lot about collaboration on projects :D
+
 ### Struggles (Jyoshita) :
 	
 ---

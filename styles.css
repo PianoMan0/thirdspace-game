@@ -113,24 +113,36 @@ body {
 
 .music-button {
     position: absolute;
-    top: 18px;
+    top: 68px;
     right: 22px;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 9px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    padding: 0;
     pointer-events: auto;
     color: var(--muted);
     background: rgba(15,20,24,.72);
-    text-transform: uppercase;
+    border: 1px solid var(--line);
+    border-radius: 50%;
 }
 
 .music-button-light {
-    width: 8px;
-    height: 8px;
-    border: 1px solid currentColor;
+    position: relative;
+    width: 13px;
+    height: 13px;
+    display: block;
+    border: 2px solid currentColor;
     border-radius: 50%;
     background: transparent;
+}
+
+.music-button-light::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: currentColor;
 }
 
 .music-button.is-playing {
@@ -138,13 +150,16 @@ body {
 }
 
 .music-button.is-playing .music-button-light {
-    background: currentColor;
     box-shadow: 0 0 8px currentColor;
 }
 
 .music-button-label {
-    font-size: 10px;
-    letter-spacing: .1em;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 .help { 
@@ -257,7 +272,7 @@ button:active {
 
 @media (max-width: 600px) { 
     .hud { padding: 14px 15px; } 
-    .music-button { top: 14px; right: 15px; }
+    .music-button { top: 72px; right: 15px; }
     .stats { gap: 10px; }
     .stats strong { font-size: 16px; }
     .help { left: 15px; bottom: 66px; max-width: 210px; line-height: 1.4; } 
