@@ -7,6 +7,13 @@
   let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], portalParticles = [], pulse = 0, uiTimer = 0;
   const player = { x: 0, y: 0, r: 18, vx: 0, vy: 0, trail: [], distance: 0, best: 0 };
   const $ = id => document.getElementById(id);
+  const settings = () => {
+    try {
+      return JSON.parse(localStorage.getItem('thirdspace-settings') || '{}');
+    } catch {
+      return {};
+    }
+  };
   const world = () => worlds[worldIndex];
   const endX = () => { const lastPlatform = world().platforms[world().platforms.length - 1]; return lastPlatform.x + lastPlatform.width; };
   let timer = 0; // you can use this as a timer :P

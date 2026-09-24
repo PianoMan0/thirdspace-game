@@ -6,6 +6,10 @@
     box-sizing: border-box; 
 }
 
+.settings-document {
+    overflow: auto;
+}
+
 html, body { 
     margin: 0; 
     width: 100%; 
@@ -111,6 +115,42 @@ body {
     transition: width .15s ease; 
 }
 
+.settings-button,
+.menu-settings-button,
+.menu-credits-button {
+    position: absolute;
+    top: 68px;
+    right: 68px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    pointer-events: auto;
+    color: var(--ink);
+    background: rgba(15,20,24,.72);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.04);
+    z-index: 200;
+}
+
+.menu-credits-button {
+    right: 114px;
+    font: 700 16px Georgia, serif;
+    font-style: italic;
+}
+
+.settings-button:hover,
+.menu-settings-button:hover,
+.menu-credits-button:hover {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+}
+
 .music-button {
     position: absolute;
     top: 68px;
@@ -196,6 +236,22 @@ button:hover {
 button:active { 
     background: var(--accent); 
     border-color: var(--accent); 
+}
+
+body[data-motion="reduced"] *,
+body[data-motion="reduced"] *::before,
+body[data-motion="reduced"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+body[data-contrast="high"] {
+    --accent: #ffd166;
+    --ink: #fffaf0;
+    --muted: #dfe9ff;
+    --line: rgba(255, 250, 240, 0.38);
 }
 
 .overlay { 
@@ -376,4 +432,263 @@ button{
 .small{
     width: 80px !important;
     height: 80px !important;
+}
+
+.settings-page {
+    overflow: auto;
+    position: relative;
+    min-height: 100%;
+    background: transparent;
+    color: var(--ink);
+}
+
+.settings-document {
+    background:
+        linear-gradient(rgba(10, 12, 13, .62), rgba(10, 12, 13, .62)),
+        url("assets/harvestbg.jpg") center top / cover fixed no-repeat;
+}
+
+.settings-shell {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 54px 7vw 40px;
+    background: transparent;
+}
+
+.settings-shell::before,
+.settings-shell::after {
+    content: "";
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--accent);
+    opacity: .8;
+}
+
+.settings-shell::before {
+    top: 0;
+    left: 0;
+    width: 38%;
+    height: 3px;
+}
+
+.settings-shell::after {
+    right: 22px;
+    bottom: 22px;
+    width: 3px;
+    height: 42px;
+}
+
+.settings-card {
+    position: relative;
+    z-index: 1;
+    width: min(460px, 100%);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.settings-header {
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.settings-logo {
+    display: block;
+    width: 82px;
+    height: 82px;
+    margin-bottom: 14px;
+    object-fit: contain;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.settings-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: .95;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+}
+
+.credits-section {
+    margin-top: 26px;
+}
+
+.credits-section h2 {
+    margin: 0 0 10px;
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.credits-section p {
+    margin: 0;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.credits-section strong,
+.credits-section span {
+    display: block;
+}
+
+.credits-section strong {
+    color: var(--ink);
+}
+
+.credits-section span {
+    font-size: 11px;
+}
+
+.settings-form {
+    display: grid;
+    gap: 26px;
+}
+
+.settings-group {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.settings-group legend {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.setting-row {
+    display: grid;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 13px;
+}
+
+.toggle-row {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.slider-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+input[type="range"] {
+    accent-color: var(--accent);
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+}
+
+.secondary-button,
+.ghost-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font: 700 11px inherit;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: background .18s, border-color .18s, transform .18s;
+}
+
+.secondary-button {
+    background: var(--accent);
+    color: #171717;
+    border: 1px solid var(--accent);
+}
+
+.ghost-button {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+}
+
+.secondary-button:hover,
+.ghost-button:hover {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+}
+
+.secondary-button:active,
+.ghost-button:active {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .settings-shell {
+        padding: 30px 15px;
+    }
+
+    .settings-card {
+        padding: 22px 18px;
+    }
+
+    .settings-actions {
+        flex-direction: column;
+    }
+
+    .secondary-button,
+    .ghost-button {
+        width: 100%;
+    }
+
+    .menu-settings-button,
+    .settings-button,
+    .menu-credits-button {
+        top: 72px;
+        right: 16px;
+    }
+
+    .menu-credits-button {
+        right: 62px;
+    }
 }

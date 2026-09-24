@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" class="settings-document">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Adjust your Bounce gameplay settings.">
+  <title>Bounce Settings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="settings.js" defer></script>
+</head>
+<body class="settings-page">
+  <div class="settings-shell">
+    <main class="settings-card">
+      <div class="settings-header">
+        <img class="settings-logo" src="assets/logo.PNG" alt="Bounce">
+        <p class="eyebrow">Bounce / Settings</p>
+        <h1>Settings</h1>
+      </div>
+
+      <form id="settingsForm" class="settings-form">
+        <fieldset class="settings-group">
+          <legend>Audio</legend>
+          <label class="setting-row toggle-row" for="musicEnabled">
+            <span>Music</span>
+            <input id="musicEnabled" type="checkbox">
+          </label>
+          <label class="setting-row" for="musicVolume">
+            <span>Music volume</span>
+            <div class="slider-wrap">
+              <input id="musicVolume" type="range" min="0" max="1" step="0.01">
+              <output id="musicVolumeValue" for="musicVolume">70%</output>
+            </div>
+          </label>
+          <label class="setting-row" for="sfxVolume">
+            <span>Effects volume</span>
+            <div class="slider-wrap">
+              <input id="sfxVolume" type="range" min="0" max="1" step="0.01">
+              <output id="sfxVolumeValue" for="sfxVolume">60%</output>
+            </div>
+          </label>
+        </fieldset>
+
+        <fieldset class="settings-group">
+          <legend>Play</legend>
+          <label class="setting-row toggle-row" for="reducedMotion">
+            <span>Reduced motion</span>
+            <input id="reducedMotion" type="checkbox">
+          </label>
+          <label class="setting-row toggle-row" for="showGuide">
+            <span>Show launch guide</span>
+            <input id="showGuide" type="checkbox">
+          </label>
+          <label class="setting-row toggle-row" for="highContrast">
+            <span>High contrast mode</span>
+            <input id="highContrast" type="checkbox">
+          </label>
+        </fieldset>
+      </form>
+
+      <div class="settings-actions">
+        <a class="secondary-button" href="index.html">Back</a>
+        <button id="resetSettings" class="ghost-button" type="button">Reset defaults</button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
