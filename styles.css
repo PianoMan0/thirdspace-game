@@ -358,6 +358,21 @@ body[data-contrast="high"] {
     width: 100%;
     
 }
+
+.story-page {
+    overflow: auto;
+    touch-action: pan-y;
+}
+
+.story-page #main_menu_div {
+    min-height: 100%;
+    height: auto;
+}
+
+.story-page #content_div {
+    overflow: visible;
+}
+
 #content_div,
 #bg_div{
     grid-column: 1; 
