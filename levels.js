@@ -165,7 +165,6 @@ const LEVELS = [
     ],
     spikes: [
       { x: 890, y: 430, width: 42, height: 22, text: false },
-      { x: 1355, y: 210, width: 42, height: 22, text: false},
       { x: 1815, y: 260, width: 42, height: 22, text: false }
     ],
     lasers: [
@@ -255,7 +254,7 @@ const LEVELS = [
     sky: '#737438',
     accent: '#ffe082',
     start: { x: 80, y: 400 },
-    goal: { x: 2350, y: 300 },
+    goal: { x: 2350, y: 250 },
     platforms: [
       { x: 0, y: 470, width: 340, height: 70 },
       { x: 450, y: 420, width: 150, height: 24 },
