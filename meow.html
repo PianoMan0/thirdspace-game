@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Bounce is a platformer where you launch yourself in the direction you want to go! Navigate through the sea, dessert, space, and more!">
   <title>Bounce</title>
   <script src="levels.js" defer></script>
@@ -27,11 +27,17 @@
       <div class="stats">
         <div><span>Attempts</span><strong id="deaths">0</strong></div>
         <div><span>Distance</span><strong><span id="distance">0</span></strong></div>
-        <div>Level<strong id="worldNumber">1 / 8</strong></div> <!-- Gotta not hard code this at some point sob -->
+        <div>Level<strong id="worldNumber">1 / 13</strong></div>
       </div>
     </div>
     <div class="progress"><span id="progressBar"></span></div>
     <div class="help"><b>Pull back, release</b><span>Reach the goal. Arrow keys also launch.</span></div>
+    <div class="touch-controls" aria-label="Touch launch controls">
+      <button type="button" data-launch="up" aria-label="Launch up">↑</button>
+      <button type="button" data-launch="left" aria-label="Launch left">←</button>
+      <button type="button" data-launch="down" aria-label="Launch down">↓</button>
+      <button type="button" data-launch="right" aria-label="Launch right">→</button>
+    </div>
     <div class="controls">
       <button id="pause" type="button" aria-label="Pause game">Pause</button>
       <button id="restart" type="button">Restart (R)</button>
@@ -45,8 +51,7 @@
         <div id="overlayStats" class="overlay-stats"></div>
         <button id="overlayButton" type="button"></button>
       </div>
-      <img class = "bg" src = "assets/harvestbg.jpg"/>
-    </div>
+      <img class = "bg" src = "assets/harvestbg.jpg" alt=""/>
   </div>
 </body>
 </html>

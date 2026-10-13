@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" class="editor-document">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Create, save, and play your own Blast Off levels.">
+  <title>Level editor | Blast Off</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="level-editor.js" defer></script>
+</head>
+<body class="level-editor-page">
+  <main class="editor-shell">
+    <header class="editor-header">
+      <div>
+        <p class="eyebrow">Bounce / Editor</p>
+        <h1>Level editor</h1>
+        <p class="editor-intro">Choose a piece, then tap the field to place it. Drag the view slider to build further along, and scroll down for tools and saved levels.</p>
+      </div>
+      <a class="editor-back" href="index.html">Main menu</a>
+    </header>
+
+    <section class="editor-field" aria-label="Level preview">
+      <canvas id="editorCanvas" aria-label="Level building area"></canvas>
+      <label class="editor-view">
+        <span>View along level</span>
+        <input id="viewPosition" type="range" min="0" max="1520" step="40" value="0" aria-label="Scroll the level preview">
+        <output id="viewPositionLabel">0 m</output>
+      </label>
+    </section>
+
+    <section class="editor-tools" aria-label="Level editor tools">
+      <div class="editor-tool-grid">
+        <button class="editor-tool is-selected" type="button" data-tool="platform" aria-pressed="true">Platform</button>
+        <button class="editor-tool" type="button" data-tool="crumble" aria-pressed="false">Crumble</button>
+        <button class="editor-tool" type="button" data-tool="spikes" aria-pressed="false">Spikes</button>
+        <button class="editor-tool" type="button" data-tool="laser" aria-pressed="false">Laser</button>
+        <button class="editor-tool" type="button" data-tool="start" aria-pressed="false">Start</button>
+        <button class="editor-tool" type="button" data-tool="goal" aria-pressed="false">Goal</button>
+        <button class="editor-tool" type="button" data-tool="erase" aria-pressed="false">Erase</button>
+      </div>
+      <p class="editor-hint">Platforms are 150 units wide; spikes and lasers are hazards. The cat marks your start, and the ring is your goal.</p>
+    </section>
+
+    <section class="editor-save" aria-label="Save and play your level">
+      <label class="editor-field-label" for="levelName">Level name</label>
+      <input id="levelName" type="text" maxlength="32" value="My level" autocomplete="off">
+      <label class="editor-field-label" for="savedLevels">Saved levels</label>
+      <div class="editor-saved-row">
+        <select id="savedLevels" aria-label="Choose a saved level">
+          <option value="">New level</option>
+        </select>
+        <button id="loadLevel" type="button">Load</button>
+        <button id="deleteLevel" type="button">Delete</button>
+      </div>
+      <div class="editor-actions">
+        <button id="newLevel" type="button">New level</button>
+        <button id="undoEdit" type="button">Undo</button>
+        <button id="clearLevel" type="button">Clear pieces</button>
+        <button id="saveLevel" class="editor-primary" type="button">Save level</button>
+        <button id="playLevel" class="editor-primary" type="button">Save &amp; play</button>
+        <button id="playSavedLevel" type="button">Play selected</button>
+      </div>
+      <p id="editorStatus" class="editor-status" role="status" aria-live="polite">Your levels are saved in this browser.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -53,7 +53,7 @@ Bounce is a game made for Hack Club's Third Space event by Jyoshita and PianoMan
 
 #### Quick Overview
 ---
-A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is roaming around the platformer world that is inspired by fall, pumpkins, and the harvest! You can move using Arrow Keys or by dragging. You have to avoid the obstacles and use the pumpkins/portals to reach the end! There are multiple different ways to get there. There are 8 levels overall. There is also a home page, a pause menu, and an instructions page! Have fun!
+A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is roaming around the platformer world that is inspired by fall, pumpkins, and the harvest! You can move using Arrow Keys or by dragging. You have to avoid the obstacles and use the pumpkins/portals to reach the end! There are 13 main levels overall. There is also a home page, a pause menu, and an instructions page! Have fun!
 
 ## HOW TO PLAY
 * Move using Arrow Keys or drag the player for precision.
@@ -63,9 +63,22 @@ A simple web platformer game made with HTML+CSS+JS. You are a cat ball that is r
 * Some platforms crumble if you stay on them too long!
 * Pause the game with **P**, and restart or move on using **R**
 * If you die you can respawn
-* Try to make it to the end of all 8 levels!
+* Try to make it to the end of all 13 main levels!
+* On phones, use the on-screen direction buttons or drag the player to launch.
+
+## CREATE YOUR OWN LEVEL
+* Choose **Level editor** from the main menu.
+* Select a piece, then tap or click the preview to place platforms, crumbling platforms, spikes, lasers, a start point, and a goal.
+* Use the view slider to move along the level, and Undo or Erase to adjust your layout.
+* Name your level and choose **Save level** to keep it in this browser, or **Save & play** to try it immediately.
+* Choose a saved level and select **Play selected** to play it without loading it into the editor first.
+* Saved levels are stored in this browser's local storage and are not shared across devices.
 
 ## FEATURES
+---
+* **Custom Level Editor**
+1) Create, save, load, and delete playable levels directly in the browser.
+2) Custom levels use the same physics and hazards as the built-in levels.
 ---
 * **Level Setup**
 1) A seperate easy to read level file to create new levels quickly! It makes our game a lot more readable and easier to impliment new levels later!

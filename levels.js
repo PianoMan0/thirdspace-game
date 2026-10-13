@@ -279,6 +279,172 @@ const LEVELS = [
     portals: [],
     pumpkins: [{ x: 1000, y: 380, secret: false, text:false}], 
   },
+  {
+    name: 'Moonlit Meadow',
+    hint: 'HARVEST',
+    sky: '#737438',
+    accent: '#b7a4ff',
+    start: { x: 80, y: 390 },
+    goal: { x: 2420, y: 190 },
+    platforms: [
+      { x: 0, y: 470, width: 340, height: 70 },
+      { x: 450, y: 390, width: 150, height: 24 },
+      { x: 700, y: 300, width: 140, height: 24 },
+      { x: 950, y: 400, width: 160, height: 24, crumble: true },
+      { x: 1200, y: 310, width: 150, height: 24 },
+      { x: 1470, y: 220, width: 140, height: 24 },
+      { x: 1730, y: 340, width: 160, height: 24, crumble: true },
+      { x: 2010, y: 270, width: 150, height: 24 },
+      { x: 2290, y: 300, width: 230, height: 24 }
+    ],
+    spikes: [
+      { x: 500, y: 390, width: 42, height: 22, text: false },
+      { x: 1250, y: 310, width: 42, height: 22, text: false },
+      { x: 1780, y: 340, width: 42, height: 22, text: false }
+    ],
+    lasers: [
+      { x: 610, y: 345, width: 90, height: 8, text: false },
+      { x: 1370, y: 155, width: 8, height: 115, text: false },
+      { x: 2165, y: 215, width: 100, height: 8, text: false }
+    ],
+    portals: [],
+    pumpkins: []
+  },
+  {
+    name: 'Pumpkin Parade',
+    hint: 'HARVEST',
+    sky: '#737438',
+    accent: '#ff9f43',
+    start: { x: 80, y: 390 },
+    goal: { x: 2450, y: 190 },
+    platforms: [
+      { x: 0, y: 470, width: 360, height: 70 },
+      { x: 470, y: 390, width: 170, height: 24 },
+      { x: 730, y: 300, width: 150, height: 24 },
+      { x: 970, y: 390, width: 180, height: 24 },
+      { x: 1230, y: 290, width: 160, height: 24, secret: true },
+      { x: 1490, y: 370, width: 170, height: 24, crumble: true },
+      { x: 1760, y: 260, width: 170, height: 24 },
+      { x: 2040, y: 360, width: 150, height: 24 },
+      { x: 2310, y: 280, width: 220, height: 24 }
+    ],
+    spikes: [
+      { x: 520, y: 390, width: 42, height: 22, text: false },
+      { x: 2085, y: 360, width: 42, height: 22, text: false }
+    ],
+    lasers: [
+      { x: 650, y: 345, width: 75, height: 8, text: false },
+      { x: 1410, y: 230, width: 8, height: 110, text: false },
+      { x: 2195, y: 300, width: 90, height: 8, text: false }
+    ],
+    portals: [],
+    pumpkins: [
+      { x: 1060, y: 350, secret: false, text: false },
+      { x: 1880, y: 220, secret: false, text: false }
+    ]
+  },
+  {
+    name: 'Skyline Sprint',
+    hint: 'HARVEST',
+    sky: '#737438',
+    accent: '#7ee7d8',
+    start: { x: 80, y: 390 },
+    goal: { x: 2450, y: 180 },
+    platforms: [
+      { x: 0, y: 470, width: 330, height: 70 },
+      { x: 430, y: 380, width: 130, height: 24 },
+      { x: 650, y: 280, width: 130, height: 24 },
+      { x: 870, y: 360, width: 140, height: 24 },
+      { x: 1100, y: 230, width: 130, height: 24 },
+      { x: 1330, y: 330, width: 150, height: 24 },
+      { x: 1580, y: 200, width: 130, height: 24 },
+      { x: 1820, y: 310, width: 150, height: 24 },
+      { x: 2070, y: 210, width: 140, height: 24 },
+      { x: 2310, y: 300, width: 220, height: 24 }
+    ],
+    spikes: [
+      { x: 470, y: 380, width: 42, height: 22, text: false },
+      { x: 900, y: 360, width: 42, height: 22, text: false },
+      { x: 1370, y: 330, width: 42, height: 22, text: false },
+      { x: 1860, y: 310, width: 42, height: 22, text: false }
+    ],
+    lasers: [
+      { x: 570, y: 320, width: 75, height: 8, text: false },
+      { x: 1015, y: 275, width: 8, height: 110, text: false },
+      { x: 1720, y: 250, width: 85, height: 8, text: false },
+      { x: 2215, y: 180, width: 8, height: 110, text: false }
+    ],
+    portals: [],
+    pumpkins: []
+  },
+  {
+    name: 'Portal Crossing',
+    hint: 'HARVEST',
+    sky: '#737438',
+    accent: '#ed9bf5',
+    start: { x: 80, y: 390 },
+    goal: { x: 2470, y: 190 },
+    platforms: [
+      { x: 0, y: 470, width: 340, height: 70 },
+      { x: 450, y: 400, width: 160, height: 24 },
+      { x: 710, y: 310, width: 150, height: 24 },
+      { x: 970, y: 400, width: 170, height: 24 },
+      { x: 1230, y: 300, width: 150, height: 24 },
+      { x: 1490, y: 210, width: 150, height: 24 },
+      { x: 1750, y: 350, width: 160, height: 24 },
+      { x: 2020, y: 260, width: 160, height: 24 },
+      { x: 2320, y: 300, width: 220, height: 24 }
+    ],
+    spikes: [
+      { x: 500, y: 400, width: 42, height: 22, text: false },
+      { x: 1010, y: 400, width: 42, height: 22, text: false },
+      { x: 1800, y: 350, width: 42, height: 22, text: false }
+    ],
+    lasers: [
+      { x: 620, y: 255, width: 80, height: 8, text: false },
+      { x: 1400, y: 250, width: 8, height: 110, text: false },
+      { x: 2200, y: 210, width: 100, height: 8, text: false }
+    ],
+    portals: [
+      { entryx: 760, entryy: 250, exitx: 1280, exity: 240, radius: 25, text: false },
+      { entryx: 1810, entryy: 290, exitx: 2070, exity: 200, radius: 25, text: false }
+    ],
+    pumpkins: []
+  },
+  {
+    name: 'Starfall Summit',
+    hint: 'HARVEST',
+    sky: '#737438',
+    accent: '#ffe082',
+    start: { x: 80, y: 390 },
+    goal: { x: 2510, y: 115 },
+    platforms: [
+      { x: 0, y: 470, width: 360, height: 70 },
+      { x: 470, y: 390, width: 150, height: 24, crumble: true },
+      { x: 710, y: 310, width: 140, height: 24 },
+      { x: 950, y: 400, width: 150, height: 24, crumble: true },
+      { x: 1190, y: 290, width: 140, height: 24 },
+      { x: 1430, y: 210, width: 150, height: 24, crumble: true },
+      { x: 1670, y: 330, width: 160, height: 24 },
+      { x: 1930, y: 220, width: 150, height: 24, crumble: true },
+      { x: 2190, y: 300, width: 150, height: 24 },
+      { x: 2450, y: 190, width: 220, height: 24 }
+    ],
+    spikes: [
+      { x: 750, y: 310, width: 42, height: 22, text: false },
+      { x: 1235, y: 290, width: 42, height: 22, text: false },
+      { x: 1715, y: 330, width: 42, height: 22, text: false },
+      { x: 2240, y: 300, width: 42, height: 22, text: false }
+    ],
+    lasers: [
+      { x: 630, y: 345, width: 70, height: 8, text: false },
+      { x: 1110, y: 335, width: 8, height: 110, text: false },
+      { x: 1600, y: 260, width: 65, height: 8, text: false },
+      { x: 2340, y: 215, width: 8, height: 100, text: false }
+    ],
+    portals: [],
+    pumpkins: []
+  },
 ];
 
 function createDailyLevel(date = new Date()) {

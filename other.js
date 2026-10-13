@@ -13,6 +13,9 @@ document.getElementById("daily").addEventListener('click', async function() {
   await playStartAnimation();
   window.location.href = 'meow.html?daily=1';
 });
+document.getElementById("build").addEventListener('click', () => {
+  window.location.href = 'level-editor.html';
+});
 //story 
 document.getElementById("fat").addEventListener('click', () => {
   window.location.href = 'story.html'

@@ -410,6 +410,11 @@ button{
     width: 10em; 
     height: 9ch;
 }
+#buttons button{
+    width: min(18rem, 84vw);
+    min-height: 3.4rem;
+    height: auto;
+}
 #buttons{
     display: flex; 
     flex-direction: column;
@@ -447,6 +452,340 @@ button{
 .small{
     width: 80px !important;
     height: 80px !important;
+}
+
+.touch-controls {
+    display: none;
+}
+
+.level-editor-page {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    touch-action: pan-y;
+    user-select: auto;
+    background:
+        linear-gradient(rgba(10, 12, 13, .74), rgba(10, 12, 13, .84)),
+        url("assets/harvestbg.jpg") center / cover fixed no-repeat;
+    color: var(--ink);
+}
+
+.editor-shell {
+    width: min(1120px, 100%);
+    height: 100%;
+    min-height: 0;
+    margin: 0 auto;
+    padding: max(24px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+}
+
+.editor-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.editor-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -.05em;
+    text-transform: uppercase;
+}
+
+.editor-intro {
+    max-width: 620px;
+    margin: 10px 0 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.editor-back {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.editor-field {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #171717;
+}
+
+#editorCanvas {
+    display: block;
+    width: 100%;
+    height: min(58vh, 480px);
+    min-height: 230px;
+    touch-action: none;
+}
+
+.editor-view {
+    display: grid;
+    grid-template-columns: auto minmax(80px, 1fr) 62px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.editor-view input {
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+.editor-view output {
+    color: var(--ink);
+    text-align: right;
+}
+
+.editor-tools,
+.editor-save {
+    margin-top: 22px;
+}
+
+.editor-tool-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.editor-tool,
+.editor-actions button,
+.editor-saved-row button {
+    width: auto;
+    height: auto;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 11px;
+    touch-action: manipulation;
+}
+
+.editor-tool.is-selected,
+.editor-primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #171717;
+}
+
+.editor-hint,
+.editor-status {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.editor-save {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-width: 760px;
+}
+
+.editor-field-label {
+    margin-top: 6px;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.editor-save input,
+.editor-save select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: rgba(15,20,24,.82);
+    color: var(--ink);
+    font: inherit;
+}
+
+.editor-saved-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+}
+
+.editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.editor-status.is-error {
+    color: #ff9b9b;
+}
+
+@media (max-width: 700px) {
+    .hud {
+        padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+    }
+
+    .brand {
+        font-size: 11px;
+    }
+
+    .world-name {
+        max-width: 44vw;
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .stats {
+        gap: 8px;
+    }
+
+    .stats span {
+        font-size: 8px;
+    }
+
+    .stats strong {
+        font-size: 14px;
+    }
+
+    .stats > div:nth-child(2) {
+        display: none;
+    }
+
+    .music-button {
+        top: 68px;
+        right: max(12px, env(safe-area-inset-right));
+    }
+
+    .help {
+        left: max(12px, env(safe-area-inset-left));
+        bottom: 116px;
+        max-width: 48vw;
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .help b {
+        font-size: 11px;
+    }
+
+    .controls {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(10px, env(safe-area-inset-bottom));
+        gap: 6px;
+    }
+
+    .controls button {
+        width: auto;
+        height: auto;
+        min-height: 44px;
+        padding: 10px;
+        font-size: 9px;
+        touch-action: manipulation;
+    }
+
+    .touch-controls {
+        position: fixed;
+        right: max(14px, env(safe-area-inset-right));
+        bottom: 74px;
+        display: grid;
+        grid-template-columns: repeat(2, 46px);
+        gap: 5px;
+        pointer-events: auto;
+    }
+
+    .touch-controls button {
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        border-radius: 12px;
+        font-size: 20px;
+        touch-action: manipulation;
+        background: rgba(15,20,24,.88);
+    }
+
+    .editor-shell {
+        padding: max(18px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    }
+
+    .editor-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .editor-back {
+        padding: 10px;
+        font-size: 10px;
+    }
+
+    .editor-intro {
+        font-size: 13px;
+    }
+
+    #editorCanvas {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+    }
+
+    .editor-view {
+        grid-template-columns: 1fr auto;
+        gap: 6px 10px;
+        padding: 9px 10px;
+    }
+
+    .editor-view span {
+        grid-column: 1 / -1;
+    }
+
+    .editor-tool-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .editor-tool {
+        padding: 10px 6px;
+        font-size: 10px;
+    }
+
+    .editor-saved-row {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 5px;
+    }
+
+    .editor-saved-row button {
+        padding: 8px;
+        font-size: 9px;
+    }
+
+    .editor-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .editor-actions button {
+        width: 100%;
+        padding: 10px 6px;
+        font-size: 9px;
+    }
 }
 
 .settings-page {

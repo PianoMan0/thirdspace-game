@@ -2,7 +2,22 @@
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d'); //context
   const W = 960, H = 540, CEILING_Y = -80, TAU = Math.PI * 2;
-  const worlds = new URLSearchParams(location.search).has('daily') ? [createDailyLevel()] : LEVELS;
+  const params = new URLSearchParams(location.search);
+  const customId = params.get('custom');
+  let customLevel = null;
+  if (customId) {
+    try {
+      const savedLevels = JSON.parse(localStorage.getItem('thirdspace-custom-levels') || '[]');
+      customLevel = savedLevels.find(level => level.id === customId) || null;
+    } catch {
+      customLevel = null;
+    }
+  }
+  if (customId && !customLevel) {
+    location.replace('level-editor.html');
+    return;
+  }
+  const worlds = customLevel ? [customLevel] : params.has('daily') ? [createDailyLevel()] : LEVELS;
   let dpr = 1, viewW = 1, viewH = 1, worldIndex = 0, deaths = 0, state = 'playing';
   let cameraX = 0, cameraY = 0, last = 0, drag = null, particles = [], portalParticles = [], pulse = 0, uiTimer = 0;
   const player = { x: 0, y: 0, r: 18, vx: 0, vy: 0, trail: [], distance: 0, best: 0 };
@@ -15,7 +30,10 @@
     }
   };
   const world = () => worlds[worldIndex];
-  const endX = () => { const lastPlatform = world().platforms[world().platforms.length - 1]; return lastPlatform.x + lastPlatform.width; };
+  const endX = () => {
+    const platformEnd = world().platforms.reduce((end, platform) => Math.max(end, platform.x + platform.width), 0);
+    return Math.max(platformEnd, world().goal.x + 100);
+  };
   let timer = 0; // you can use this as a timer :P
   let portal_alpha = 0 
   let reduce = false;
@@ -129,6 +147,16 @@
   }
   $('pause').onclick = togglePause;
   $('restart').onclick = () => { if (state === 'dead') deaths++; resetPlayer(); };
+  document.querySelectorAll('[data-launch]').forEach(button => {
+    button.addEventListener('click', () => {
+      const backwards = world().name === 'Backwards';
+      const directions = backwards
+        ? { up: [0, 1], down: [0, -1], left: [1, 0], right: [-1, 0] }
+        : { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+      const [x, y] = directions[button.dataset.launch];
+      launch(x * 95, y * 95);
+    });
+  });
   $('next').onclick = () => loadWorld((worldIndex + 1) % worlds.length);
   $('overlayButton').onclick = () => {
     if (state === 'won' && worldIndex < worlds.length - 1) loadWorld(worldIndex + 1);
@@ -536,4 +564,3 @@
   function loop(now) { const dt = Math.min(.033, (now - last) / 1000 || .016); last = now; update(dt); draw(); requestAnimationFrame(loop); }
   resize(); loadWorld(0); requestAnimationFrame(loop);
 })();
-
